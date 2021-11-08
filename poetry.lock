@@ -1,18 +1,4 @@
 [[package]]
-name = "autopub"
-version = "0.2.1"
-description = "Automatic package release upon pull request merge"
-category = "dev"
-optional = false
-python-versions = ">=3.6,<4.0"
-
-[package.dependencies]
-tomlkit = ">=0.5,<2.0"
-
-[package.extras]
-github = ["githubrelease (>=1.5.8,<2.0.0)", "httpx (==0.16.1)"]
-
-[[package]]
 name = "beautifulsoup4"
 version = "4.10.0"
 description = "Screen-scraping library"
@@ -28,17 +14,6 @@ html5lib = ["html5lib"]
 lxml = ["lxml"]
 
 [[package]]
-name = "bs4"
-version = "0.0.1"
-description = "Dummy package for Beautiful Soup"
-category = "main"
-optional = false
-python-versions = "*"
-
-[package.dependencies]
-beautifulsoup4 = "*"
-
-[[package]]
 name = "soupsieve"
 version = "2.3"
 description = "A modern CSS selector implementation for Beautiful Soup."
@@ -46,36 +21,17 @@ category = "main"
 optional = false
 python-versions = ">=3.6"
 
-[[package]]
-name = "tomlkit"
-version = "0.7.2"
-description = "Style preserving TOML library"
-category = "dev"
-optional = false
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
-
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "a8a01f0123d6fca628b79304dae8ab974fd2d38bbb721892de0805475683c814"
+content-hash = "6a2201fd87d443b375d2e73390b70a96c2a5066a68b809337ba9c387ff009626"
 
 [metadata.files]
-autopub = [
-    {file = "autopub-0.2.1-py3-none-any.whl", hash = "sha256:3260d4ebb369beab40113ace4a212903eeed7740138f18e5bae7aa41e243736a"},
-    {file = "autopub-0.2.1.tar.gz", hash = "sha256:d4e46edc11c4c6dc3a3f513e4f1c74a79c5a9c5896bb832b7327cdca485a612b"},
-]
 beautifulsoup4 = [
     {file = "beautifulsoup4-4.10.0-py3-none-any.whl", hash = "sha256:9a315ce70049920ea4572a4055bc4bd700c940521d36fc858205ad4fcde149bf"},
     {file = "beautifulsoup4-4.10.0.tar.gz", hash = "sha256:c23ad23c521d818955a4151a67d81580319d4bf548d3d49f4223ae041ff98891"},
 ]
-bs4 = [
-    {file = "bs4-0.0.1.tar.gz", hash = "sha256:36ecea1fd7cc5c0c6e4a1ff075df26d50da647b75376626cc186e2212886dd3a"},
-]
 soupsieve = [
     {file = "soupsieve-2.3-py3-none-any.whl", hash = "sha256:617ffc4d0dfd39c66f4d1413a6e165663a34eca86be9b54f97b91756300ff6df"},
     {file = "soupsieve-2.3.tar.gz", hash = "sha256:e4860f889dfa88774c07da0b276b70c073b6470fa1a4a8350800bb7bce3dcc76"},
-]
-tomlkit = [
-    {file = "tomlkit-0.7.2-py2.py3-none-any.whl", hash = "sha256:173ad840fa5d2aac140528ca1933c29791b79a374a0861a80347f42ec9328117"},
-    {file = "tomlkit-0.7.2.tar.gz", hash = "sha256:d7a454f319a7e9bd2e249f239168729327e4dd2d27b17dc68be264ad1ce36754"},
 ]
