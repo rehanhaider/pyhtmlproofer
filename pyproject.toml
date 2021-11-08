@@ -1,0 +1,40 @@
+[tool.poetry]
+name = "htmlproofer"
+version = "0.1.0"
+description = "Find and test all links in you static html files"
+authors = ["Rehan Haider <email@rehanhaider.com>"]
+license = "AGPL-3.0"
+readme = "README.md"
+keywords = ["html", "htmlproofer"]
+repository = "https://github.com/rehanhaider/htmlproofer"
+
+
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: End Users/Desktop",
+    "Operating System :: OS Independent",
+    "License :: OSI Approved :: GNU Affero General Public License v3",
+    "Programming Language :: Python",
+    "Topic :: Internet :: WWW/HTTP",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+[tool.poetry.urls]
+"Issue Tracker" = "https://github.com/rehanhaider/htmlproofer/issues"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+beautifulsoup4 = "^4.10.0"
+
+
+[tool.autopub]
+project-name = "HTMLPROOFER"
+git-username = "rehanhaider"
+git-email = "email@rehanhaider.com"
+
+[tool.poetry.dev-dependencies]
+black = {version = "^21.5b0", allow-prereleases = true}
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
