@@ -1,8 +1,19 @@
 """
-# Proof HTML Files
+# --*-- coding: utf-8 --*--
+# htmlproofer - A tool for validating external links in HTML files
 """
+import uuid
+import re
+
 import glob
 from bs4 import BeautifulSoup
+import requests
+import urllib3
+
+
+URL_TIMEOUT = 10.0
+URL_BOT_ID = f"Bot {uuid.uuid4()}"
+URL_HEADERS = {"User-Agent": URL_BOT_ID}
 
 
 class HTMLProofer:
@@ -13,8 +24,6 @@ class HTMLProofer:
     def __init__(self) -> None:
         self.links = set()
         self.images = set()
-        self.scripts = set()
-        self.styles = set()
 
     def check_directory(self, path: str) -> None:
         """
@@ -37,9 +46,3 @@ class HTMLProofer:
             for image in soup.find_all("img"):
                 if image.get("src").startswith("http"):
                     self.images.add(image.get("src"))
-            for script in soup.find_all("script"):
-                if script.get("src").startswith("http"):
-                    self.scripts.add(script.get("src"))
-            for style in soup.find_all("style"):
-                if style.get("src").startswith("http"):
-                    self.styles.add(style.get("src"))
