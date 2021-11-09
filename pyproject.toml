@@ -5,7 +5,11 @@ description = ""
 authors = [
     {name = "Rehan Haider", email = "email@rehanhaider.com"},
 ]
-dependencies = ["beautifulsoup4<5.0.0,>=4.10.0", "requests<3.0.0,>=2.26.0"]
+dependencies = [
+    "beautifulsoup4<5.0.0,>=4.10.0",
+    "requests<3.0.0,>=2.26.0",
+    "html5lib~=1.1",
+]
 requires-python = ">=3.9"
 dynamic = ["classifiers", "classifiers"]
 license = {text = "AGPL-3.0"}
