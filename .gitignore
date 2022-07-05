@@ -132,3 +132,5 @@ dmypy.json
 # Project specific files
 .vscode/
 output/
+.pdm.toml
+__pypackages__/
