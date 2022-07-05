@@ -7,6 +7,7 @@ import os
 
 
 class HTMLProofer:
+    VERSION = "0.1.0.alpha"
     """
     A tool for validating internal & external links in HTML files / Websites
     """
