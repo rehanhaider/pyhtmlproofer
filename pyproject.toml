@@ -1,5 +1,5 @@
 [project]
-name = "htmlproofer"
+name = "pyhtmlproofer"
 version = "0.1.0"
 description = "htmlproofer - A tool for validating internal & external links in HTML files / Websites"
 authors = [
@@ -15,7 +15,7 @@ license = {text = "MIT"}
 [project.optional-dependencies]
 
 [tool.autopub]
-project-name = "HTMLPROOFER"
+project-name = "PYHTMLPROOFER"
 git-username = "rehanhaider"
 git-email = "email@rehanhaider.com"
 
@@ -25,6 +25,10 @@ includes = []
 [tool.pdm.dev-dependencies]
 dev = [
     "pytest>=7.1.2",
+    "pyhtmlproofer @ file:///${PROJECT_ROOT}",
+]
+test = [
+    "pyhtmlproofer @ file:///${PROJECT_ROOT}",
 ]
 [build-system]
 requires = ["pdm-pep517>=0.12.0"]
