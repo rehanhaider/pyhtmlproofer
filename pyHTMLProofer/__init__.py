@@ -1,5 +1,5 @@
 """
-A tool for validating internal & external links in HTML files / Websites
+`pyHTMLProofer`: A tool for validating internal & external links in HTML files / Websites
 """
 
 import os
