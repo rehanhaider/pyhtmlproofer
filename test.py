@@ -1,4 +1,4 @@
-from htmlproofer import HTMLProofer
+from src import HTMLProofer
 
 
 HTML = HTMLProofer()
