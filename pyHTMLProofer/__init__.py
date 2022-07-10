@@ -19,7 +19,9 @@ def check_file(file_path, options=None):
     if not os.path.isfile(file_path):
         raise FileNotFoundError(f"File does not exist: {file_path}")
 
-    return True
+    options["type"] = "file"
+
+    return Runner(file_path, options)
 
 
 def check_directory(directory_path, options=None):
@@ -37,10 +39,12 @@ def check_directory(directory_path, options=None):
     if not os.path.isdir(directory_path):
         raise FileNotFoundError(f"Directory does not exist: {directory_path}")
 
-    return True
+    options["type"] = "directory"
+
+    return Runner(directory_path, options)
 
 
-def check_directories(directory_paths, options=None):
+def check_directories(directories, options=None):
     """
     Check the directories for internal & external links
     :param directory_paths:
@@ -48,15 +52,17 @@ def check_directories(directory_paths, options=None):
     """
 
     # Raise error if directory path is not a string
-    if not isinstance(directory_paths, list):
+    if not isinstance(directories, list):
         raise ArgumentError("Directory paths must be a list")
 
     # Raise error if the directory does not exist
-    for directory_path in directory_paths:
-        if not os.path.isdir(directory_path):
-            raise FileNotFoundError(f"Directory does not exist: {directory_path}")
+    for directory in directories:
+        if not os.path.isdir(directory):
+            raise FileNotFoundError(f"Directory does not exist: {directory}")
 
-    return True
+    options["type"] = "directories"
+
+    return Runner(directories, options)
 
 
 def check_links(links, options=None):
@@ -70,7 +76,9 @@ def check_links(links, options=None):
     if not isinstance(links, list):
         raise ArgumentError("Links must be a list")
 
-    return True
+    options["type"] = "links"
+
+    return Runner(links, options)
 
 
 def check_sitemap(sitemap_url, options=None):
@@ -84,5 +92,6 @@ def check_sitemap(sitemap_url, options=None):
         raise ArgumentError("Sitemap url must be a string")
 
     print(f"Checking sitemap: {sitemap_url}")
+    options["type"] = "sitemap"
 
-    Runner(sitemap_url, options)
+    return Runner(sitemap_url, options)

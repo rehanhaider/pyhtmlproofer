@@ -1,5 +1,6 @@
+from ast import Raise
 from pyHTMLProofer.Config import Config
-from pyHTMLProofer.Utils.Log import Log
+from pyHTMLProofer.utils.Log import Log
 
 
 class Runner:
@@ -12,10 +13,14 @@ class Runner:
         self.internal_urls = ()
         self.failures = ()
 
-        self.before_request = ()
-
-        self.checked_paths = ()
-
-        self.current_check = None
-        self.current_source = None
-        self.current_filename = None
+    def run(self):
+        if self.options["type"] == "file":
+            print(f"Checking file from inside runner: {self.source}")
+        elif self.options["type"] == "directory":
+            print("Checking directory, I'm inside runner")
+        elif self.options["type"] == "directories":
+            print("Checking directories, I'm inside runner")
+        elif self.options["type"] == "sitemap":
+            print("Checking sitemap, I'm inside runner")
+        else:
+            raise TypeError("Invalid type")
