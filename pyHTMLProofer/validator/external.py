@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 
 
-class URL:
+class External:
     """
     This class is used to validate external URLs.
     methods: validate -> This method is used to validate external URLs.

@@ -9,7 +9,7 @@
 			// Update 'VARIANT' to pick a Python version: 3, 3.10, 3.9, 3.8, 3.7, 3.6
 			// Append -bullseye or -buster to pin to an OS version.
 			// Use -bullseye variants on local on arm64/Apple Silicon.
-			"VARIANT": "3.9",
+			"VARIANT": "3.10",
 			// Options
 			"NODE_VERSION": "none"
 		}
@@ -30,10 +30,10 @@
 		"python.linting.pydocstylePath": "/usr/local/py-utils/bin/pydocstyle",
 		"python.linting.pylintPath": "/usr/local/py-utils/bin/pylint",
 		"python.autoComplete.extraPaths": [
-			"__pypackages__/3.9/lib"
+			"__pypackages__/3.10/lib"
 		],
 		"python.analysis.extraPaths": [
-			"__pypackages__/3.9/lib"
+			"__pypackages__/3.10/lib"
 		]
 	},
 	// Add the IDs of extensions you want installed when the container is created.

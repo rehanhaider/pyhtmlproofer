@@ -3,6 +3,7 @@
 """
 
 import os
+import requests
 from argparse import ArgumentError
 from pyHTMLProofer.Runner import Runner
 
@@ -90,6 +91,10 @@ def check_sitemap(sitemap_url, options=None):
     # Raise error if sitemap url is not a string
     if not isinstance(sitemap_url, str):
         raise ArgumentError("Sitemap url must be a string")
+
+    # Raise error if the sitemap does not exist
+    if requests.get(sitemap_url).status_code != 200:
+        raise FileNotFoundError(f"Sitemap does not exist: {sitemap_url}")
 
     print(f"Checking sitemap: {sitemap_url}")
     options["type"] = "sitemap"
