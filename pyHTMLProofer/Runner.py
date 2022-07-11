@@ -24,6 +24,14 @@ class Runner:
         elif self.options["type"] == "directories":
             print("Checking directories, I'm inside runner")
         elif self.options["type"] == "sitemap":
-            self.internal_urls = SitemapParser(self.source, self.options).get_urls()
+            self.check_sitemap()
         else:
             raise TypeError("Invalid type")
+
+    def check_sitemap(self):
+        """
+        Checks the sitemap for internal links.
+        """
+        self.LOGGER.info("Checking sitemap for internal links")
+        self.internal_urls = SitemapParser(self.source, self.options).get_urls()
+        self.LOGGER.info(f"Found {len(self.internal_urls)} internal links")

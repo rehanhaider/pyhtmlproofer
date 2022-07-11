@@ -14,7 +14,15 @@ class SitemapParser:
         self.options = options
 
     def get_urls(self):
-        """This method is used to parse the sitemap and return a list of URLs."""
+        """Generate the list of unique URLs in the sitemap.
+
+        Raises:
+            ArgumentError: The 
+            FileNotFoundError: _description_
+
+        Returns:
+            _type_: _description_
+        """
 
         # Raise error if sitemap URL is not a string
         if not isinstance(self.sitemap_url, str):
@@ -27,4 +35,6 @@ class SitemapParser:
         # Parse the sitemap.xml and fetch all URLs
         response = requests.get(self.sitemap_url)
         soup = BeautifulSoup(response.text, features="xml")  # Uses "lxml", no need to specify
-        return [url.text for url in soup.find_all("loc")]
+
+        # Return the unique list of URLs in sitemap
+        return list({url.text for url in soup.find_all("loc")})
