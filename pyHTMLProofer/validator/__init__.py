@@ -1,4 +1,4 @@
 """Module: url_validator"""
 
 
-from .url import URL
+from .external import External
