@@ -23,7 +23,12 @@ class _URL:
         This method is used to validate external URLs.
         """
         try:
-            response = requests.get(self.url)
+            response = requests.get(
+                self.url,
+                headers=self.options["HTTP"]["headers"],
+                timeout=self.options["HTTP"]["timeout"],
+                allow_redirects=self.options["HTTP"]["followlocation"],
+            )
             if response.status_code != 200:
                 return False
             self.html_soup = BeautifulSoup(response.text, "html5lib")

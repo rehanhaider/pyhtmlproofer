@@ -27,7 +27,7 @@ class Runner:
         else:
             raise TypeError("Invalid type")
 
-    def check_links(self):
+    def check_links(self):  # sourcery skip: remove-unnecessary-else
         """
         Checks the internal & external links in the HTML to see if they're broken.
         """
@@ -38,6 +38,15 @@ class Runner:
             else:
                 self.LOGGER.info(f"Finding links in {url}")
                 self.get_links(URL.html_soup)
+
+        # Check the list of external links
+        self.LOGGER.info("Checking external links")
+        for url in self.external_urls:
+            self.LOGGER.info(f"Checking external link: {url}")
+            URL = _URL(url, options=self.options)
+            if URL.validate() is False:
+                self.failures.append(url)
+                self.LOGGER.error(f"URL is invalid: {url}")
 
     def get_links(self, html_soup):
         """
