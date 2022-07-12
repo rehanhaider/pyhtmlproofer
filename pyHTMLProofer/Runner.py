@@ -33,7 +33,7 @@ class Runner:
         for url in self.source:
             URL = _URL(url, options=self.options)
             if URL.validate() is False:
-                self.failures.append(url)
+                raise ValueError(f"URL is invalid: {url}")
             else:
                 self.get_links(URL.html_soup)
 

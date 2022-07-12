@@ -2,7 +2,6 @@
 `pyHTMLProofer`: A tool for validating internal & external links in HTML files / Websites
 """
 
-import os
 import requests
 from argparse import ArgumentError
 from pyHTMLProofer.Runner import Runner
