@@ -32,7 +32,7 @@ class Config:
     HTTP_DEFAULTS = {
         "followlocation": True,
         "headers": {
-            "User-Agent": f"Mozilla/5.0 (compatible; HTML Proofer/{__version__}; https://github.com/rehanhaider/htmlproofer)",
+            "User-Agent": f"Mozilla/5.0 (compatible; pyHTMLProofer/{__version__})",
             "Accept": "application/xml,application/xhtml+xml,text/html;q=0.9, text/plain;q=0.8,image/png,*/*;q=0.5",
         },
         "connecttimeout": 10,
