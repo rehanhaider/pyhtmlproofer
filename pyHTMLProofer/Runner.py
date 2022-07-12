@@ -22,6 +22,7 @@ class Runner:
             print(f"Checking following links from inside runner: {self.source}")
             self.check_links()
         elif self.options["type"] == "sitemap":
+            self.LOGGER.info(f"Checking for URLs in sitemap: {self.source}")
             self.check_site()
         else:
             raise TypeError("Invalid type")
@@ -35,18 +36,23 @@ class Runner:
             if URL.validate() is False:
                 raise ValueError(f"URL is invalid: {url}")
             else:
+                self.LOGGER.info(f"Finding links in {url}")
                 self.get_links(URL.html_soup)
 
     def get_links(self, html_soup):
         """
         Checks the internal or external link in the HTML to see if it's broken.
         """
+        # Get all the links in the HTML
         external_urls, internal_urls = HTMLParser(html_soup, options=self.options).parse()
-        self.LOGGER.info(f"External URLs: \n{external_urls}")
-        self.LOGGER.info(f"Internal URLs: \n{internal_urls}")
 
-        # self.external_urls.extend(external_urls)
-        # self.internal_urls.extend(internal_urls)
+        # Add the URLs to the list of external & internal links
+        self.external_urls.extend(external_urls)
+        self.internal_urls.extend(internal_urls)
+
+        # Uniqueify the list of external & internal links
+        self.external_urls = list(set(self.external_urls))
+        self.internal_urls = list(set(self.internal_urls))
 
     def check_site(self):
         """
