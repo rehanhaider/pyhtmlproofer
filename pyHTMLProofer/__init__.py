@@ -2,26 +2,25 @@
 `pyHTMLProofer`: A tool for validating internal & external links in HTML files / Websites
 """
 
-import os
 import requests
 from argparse import ArgumentError
 from pyHTMLProofer.Runner import Runner
 
-
-def check_links(links, options=None):
-    """
-    Check the links for internal & external links
-    :param links:
-    :return:
-    """
-
-    # Raise error if link is not a string
-    if not isinstance(links, list):
-        raise ArgumentError("Links must be a list")
-
-    options["type"] = "links"
-
-    return Runner(links, options)
+# Not included in first release
+# def check_links(links, options=None):
+#    """
+#    Check the links for internal & external links
+#    :param links:
+#    :return:
+#    """
+#
+#    # Raise error if link is not a string
+#    if not isinstance(links, list):
+#        raise ArgumentError("Links must be a list")
+#
+#    options["type"] = "links"
+#
+#    return Runner(links, options)
 
 
 def check_sitemap(sitemap_url, options=None):
