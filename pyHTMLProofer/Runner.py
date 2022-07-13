@@ -1,3 +1,4 @@
+from urllib.parse import urlparse
 from pyHTMLProofer.Config import Config
 from pyHTMLProofer.utils import Log
 from pyHTMLProofer.utils import SitemapParser
@@ -27,17 +28,37 @@ class Runner:
         else:
             raise TypeError("Invalid type")
 
+    def check_site(self):
+        """
+        Checks the URLs listed in sitemap for internal & external links.
+        """
+        # EXtract the hostname from the URL
+
+        self.LOGGER.info(f"Checking for URLs in sitemap: {self.source}")
+        # Parse the sitemap.xml and fetch all unique URLs
+        self.source = SitemapParser(self.source, self.options).get_urls()
+
+        # Check the list of URLs found in the sitemap
+        self.LOGGER.info("Checking URLs in sitemap")
+        self.check_links()
+
     def check_links(self):  # sourcery skip: remove-unnecessary-else
         """
         Checks the internal & external links in the HTML to see if they're broken.
         """
         for url in self.source:
-            URL = _URL(url, options=self.options)
+            base_url = f"{urlparse(self.source).scheme}:\\{urlparse(self.source).hostname}"
+            URL = _URL(url, options=self.options, base_url=base_url)
+            # Check if provided URL is valid or not by sending a GET request
+            # TODO: Change the GET to HEAD request in future
             if URL.validate() is False:
                 raise ValueError(f"URL is invalid: {url}")
             else:
                 self.LOGGER.info(f"Finding links in {url}")
-                self.get_links(URL.html_soup)
+                external_urls, internal_urls = URL.get_links()
+                # TODO: Check if the links are unique or not. If not add them to master list with metadata in dict format
+
+                # TODO: Restart working from here
 
         # Check the list of external links
         self.LOGGER.info("Checking external links")
@@ -48,29 +69,21 @@ class Runner:
                 self.failures.append(url)
                 self.LOGGER.error(f"URL is invalid: {url}")
 
-    def get_links(self, html_soup):
+        # Check the list of internal links
+        self.LOGGER.info("Checking internal links")
+        for url in self.internal_urls:
+            self.LOGGER.info(f"Checking internal link: {url}")
+            URL = _URL(
+                url,
+                options=self.options,
+            )
+            if URL.validate() is False:
+                self.failures.append(url)
+                self.LOGGER.error(f"URL is invalid: {url}")
+
+    def get_links_from_url(self, html_soup):
         """
         Checks the internal or external link in the HTML to see if it's broken.
         """
         # Get all the links in the HTML
-        external_urls, internal_urls = HTMLParser(html_soup, options=self.options).parse()
-
-        # Add the URLs to the list of external & internal links
-        self.external_urls.extend(external_urls)
-        self.internal_urls.extend(internal_urls)
-
-        # Uniqueify the list of external & internal links
-        self.external_urls = list(set(self.external_urls))
-        self.internal_urls = list(set(self.internal_urls))
-
-    def check_site(self):
-        """
-        Checks the URLs listed in sitemap for internal & external links.
-        """
-        self.LOGGER.info(f"Checking for URLs in sitemap: {self.source}")
-        # Parse the sitemap.xml and fetch all unique URLs
-        self.source = SitemapParser(self.source, self.options).get_urls()
-
-        # Check the list of URLs found in the sitemap
-        self.LOGGER.info("Checking URLs in sitemap")
-        self.check_links()
+        external_urls, internal_urls = HTMLParser(html_soup, options=self.options).get_links()

@@ -12,7 +12,7 @@ class HTMLParser:
         self.external_urls = []
         self.internal_urls = []
 
-    def parse(self):
+    def get_links(self):
         """
         Parses the HTML file and returns the list of links found in the HTML file.
         """
