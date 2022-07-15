@@ -1,6 +1,8 @@
 from typing import Union, Dict, Optional, List, AnyStr
 from os import path
 
+from requests.api import options
+
 # from wsgiref import validate
 from .Config import Config
 from .Log import Log
@@ -24,12 +26,12 @@ class Checker:
         self.LOGGER = Log(log_level=options["log_level"]).LOGGER
 
         # Initialise empty dictionaries
-        # URL dict format is {url: [file_paths]}
+        # URL dict format is {url: [source1, source2, ...]}
         self.external_urls = {}
         self.internal_urls = {}
 
         # Initialise empty list
-        # The format is [{file_paths: [urls]}]
+        # The format is {file_paths: [url1, url2, ...]}
         self.failures = {}
 
     def check(self) -> None:
@@ -56,19 +58,28 @@ class Checker:
             file = FILE(self)
             file_external_urls, file_internal_urls = file.check()
 
-        self.external_urls = merge_urls(self.external_urls, file_external_urls)
-        self.internal_urls = merge_urls(self.internal_urls, file_internal_urls)
         # self.LOGGER.info("External URLs: %s", file_external_urls)
         # self.LOGGER.info("Internal URLs: %s", file_internal_urls)
+
+        self.external_urls = merge_urls(self.external_urls, file_external_urls)
+        self.internal_urls = merge_urls(self.internal_urls, file_internal_urls)
+
+        self.LOGGER.info("External URLs: %s", file_external_urls)
 
     def validate(self) -> None:
         self.validate_external_urls()
         self.validate_internal_urls()
 
     def validate_external_urls(self) -> None:
+        if self.options["disable_external"]:
+            self.LOGGER.debug("External URL check disabled: Skipping")
+            return
+
         for url in self.external_urls:
             if url in self.options["ignore_urls"]:
                 self.LOGGER.debug("Ignoring URL: %s", url)
+            elif url in self.failures.values():
+                self.LOGGER.debug("URL check already failed: %s", url)
             else:
                 self.LOGGER.debug("Validating URL: %s", url)
                 status = External(url, self.options).validate()

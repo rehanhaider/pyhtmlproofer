@@ -5,9 +5,9 @@ from typing import Dict
 
 
 def merge_urls(urls: Dict, new_urls: Dict) -> Dict:
-    for url in new_urls:
-        if url in urls:
-            urls[url] += new_urls[url]
+    for new_url, new_source in new_urls:
+        if new_url in urls.keys():
+            urls[new_url].append(new_source)
         else:
-            urls[url] = new_urls[url]
+            urls[new_url] = [new_source]
     return urls
