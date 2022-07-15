@@ -44,7 +44,7 @@ addopts = "--maxfail=1 --capture=no"
 testpaths = "tests"
 console_output_style = "classic"
 log_cli = "True"
-log_level = "INFO"
+log_level = "DEBUG"
 log_format = "%(levelname)s %(message)s"
 log_file = "pytest.log"
 
