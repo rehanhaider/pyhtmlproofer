@@ -6,5 +6,5 @@ def test_app():
     file_path = "tests/out/index.html"
     options = {"log_level": "DEBUG", "ignore_files": ["tests/out/index.html"]}
     options = {"log_level": "DEBUG", "disable_external": True}
-    options = {"log_level": "DEBUG"}
+    # options = {"log_level": "DEBUG"}
     pyHTMLProofer.file(file_path, options=options).check()

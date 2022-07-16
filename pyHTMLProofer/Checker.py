@@ -46,6 +46,8 @@ class Checker:
         # This is specific to user provided file paths and not self-discovered ones
         # if not path.isfile(self.source):
         #    raise FileNotFoundError(f"File does not exist: {self.source}")
+        self.base_url = path.dirname(self.source)  # Used for internal file paths
+
         file_external_urls = {}
         file_internal_urls = {}
 
@@ -90,7 +92,22 @@ class Checker:
                         self.failures[self.source] = [url]
 
     def validate_internal_urls(self) -> None:
-        pass
+        # Get the directory of the file
+        for url in self.internal_urls:
+            if url in self.options["ignore_urls"]:
+                self.LOGGER.debug(f"Ignoring URL: {url}")
+            elif url in self.failures.values():
+                self.LOGGER.debug(f"URL check already failed: {url}")
+            else:
+                self.LOGGER.debug(f"Validating URL: {url}")
+                if Internal(url, options=self.options, base_url=self.base_url).validate():
+                    self.LOGGER.info(f"Found URL: {url}")
+                else:
+                    self.LOGGER.error(f"URL missing: {url}")
+                    if self.source in self.failures.keys():
+                        self.failures[self.source].append(url)
+                    else:
+                        self.failures[self.source] = [url]
 
     def get_urls(self) -> Dict[AnyStr, List]:
         return self.external_urls, self.internal_urls

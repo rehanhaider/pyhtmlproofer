@@ -1,14 +1,16 @@
-from typing import AnyStr
+from os import curdir
+from typing import AnyStr, Dict, Optional
 
 
 class URL:
-    def __init__(self, url: AnyStr, options=None) -> None:
+    def __init__(self, url: AnyStr, options: Optional[Dict] = None, base_url: Optional[AnyStr] = None) -> None:
         self.url = url
         self.options = options
+        self.base_url = base_url
 
 
 class External(URL):
-    def __init__(self, url: AnyStr, options=None) -> None:
+    def __init__(self, url: AnyStr, options: Optional[Dict] = None, base_url: Optional[AnyStr] = None) -> None:
         super().__init__(url, options)
 
     def validate(self):
@@ -32,5 +34,19 @@ class External(URL):
 
 
 class Internal(URL):
-    def __init__(self, url: AnyStr, options=None) -> None:
-        super().__init__(url, options)
+    def __init__(self, url: AnyStr, options: Optional[Dict] = None, base_url: Optional[AnyStr] = None) -> None:
+        super().__init__(url, options, base_url)
+
+    def validate(self):
+        from os import path
+
+        # Join two paths to get the absolute path
+        internal_url_path = self.base_url + self.url
+        if path.isfile(internal_url_path):
+            return True
+        elif path.isfile(f"{internal_url_path}{self.options['assume_extension']}"):
+            return True
+        elif path.isfile(f"{internal_url_path}/{self.options['directory_index_file']}"):
+            return True
+        else:
+            return False
