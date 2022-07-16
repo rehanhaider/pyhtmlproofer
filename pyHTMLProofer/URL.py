@@ -1,5 +1,8 @@
 from os import curdir
+from sys import intern
 from typing import AnyStr, Dict, Optional
+from .HTML import HTML
+from bs4 import BeautifulSoup
 
 
 class URL:
@@ -44,17 +47,39 @@ class Internal(URL):
         # Join two paths to get the absolute path
         self.LOGGER.debug(f"Base URL (Internal): {self.base_url}")
         # self.LOGGER.debug(f"Checking internal URL: {self.url}")
-        internal_url_path = (self.base_url + self.url.rstrip("/")).replace("//", "/")
+        internal_reference = None
+        internal_url_path = self.base_url + self.url.rstrip("/")
+
+        result = False
 
         if "#" in internal_url_path:
-            internal_reference = internal_url_path.split("#")[1]
+            internal_reference = f"#{internal_url_path.split('#')[1]}"
             internal_url_path = internal_url_path.split("#")[0]
 
         if path.isfile(internal_url_path):
-            return True
+            result = True
+            if internal_reference:
+                result = self.check_reference(internal_url_path, internal_reference)
         elif path.isfile(f"{internal_url_path}{self.options['assume_extension']}"):
-            return True
+            result = True
+            if internal_reference:
+                result = self.check_reference(
+                    f"{internal_url_path}{self.options['assume_extension']}", internal_reference
+                )
         elif path.isfile(f"{internal_url_path}/{self.options['directory_index_file']}"):
-            return True
-        else:
-            return False
+            result = True
+            if internal_reference:
+                result = self.check_reference(
+                    f"{internal_url_path}/{self.options['directory_index_file']}", internal_reference
+                )
+
+        return result
+
+    def check_reference(self, internal_url_path, internal_reference):
+        # get the soup from internal_url_path
+        with open(internal_url_path, "r") as f:
+            soup = BeautifulSoup(f.read(), "html5lib")
+
+        html = HTML(soup, self.options)
+
+        return html.check_reference(internal_reference)

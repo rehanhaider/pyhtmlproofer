@@ -24,3 +24,8 @@ class HTML:
                     self.internal_urls.append(url)
 
         return self.external_urls, self.internal_urls
+
+    def check_reference(self, internal_reference):
+        # Check if the internal reference is a hyperlink in the HTML file
+        if self.html_soup.find("a", href=internal_reference):
+            return True

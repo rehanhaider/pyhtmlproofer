@@ -41,7 +41,7 @@ class FILE:
             for url in file_internal_urls:
                 if url.startswith("#"):
                     url = self.file_path + url
-                    self.LOGGER.error(f"Internal link with hash: {url}")
+                    # self.LOGGER.error(f"Internal link with hash: {url}")
                 self.file_internal_urls[url] = [self.file_path]
 
         # Return empty lists if file doesn't exist
