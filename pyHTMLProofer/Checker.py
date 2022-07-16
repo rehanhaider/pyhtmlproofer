@@ -50,7 +50,6 @@ class Checker:
         # if not path.isfile(self.source):
         #    raise FileNotFoundError(f"File does not exist: {self.source}")
         if not base_url:  # Invoked in case of one file check otherwise set at global by the check_directories method
-            self.LOGGER.error("THis is a bug, please report it")
             self.base_url = path.dirname(path.abspath(source))  # Used for internal file paths
         self.LOGGER.debug(f"Base URL: {self.base_url}")
         self.current_url = source
@@ -64,21 +63,26 @@ class Checker:
         elif source in self.failures:
             self.LOGGER.debug(f"File check already failed: {self.source}")
         else:
-            self.LOGGER.debug(f"Initialising File Object: {self.source}")
+            self.LOGGER.debug("Initialising File Object...")
             file = FILE(self)
             file_external_urls, file_internal_urls = file.check()
 
         # self.LOGGER.info("External URLs: %s", file_external_urls)
-        # self.LOGGER.error("Internal URLs: %s", file_internal_urls)
+        # self.LOGGER.info("Internal URLs: %s", file_internal_urls)
 
         self.external_urls = merge_urls(self.external_urls, file_external_urls)
         self.internal_urls = merge_urls(self.internal_urls, file_internal_urls)
 
     def check_directories(self, directories: List) -> None:
+        """Checks all files in the directories provided.
+
+        Args:
+            directories (List): List of absolute paths to directories that needs to be checked
+        """
         files = []
         for directory in directories:
-            self.LOGGER.error(f"Checking directory: {directory}")
-            self.base_url = path.abspath(directory)
+            self.LOGGER.debug(f"Checking directory: {directory}")
+            self.base_url = directory
             self.LOGGER.debug(f"Base URL: {self.base_url}")
 
             self.LOGGER.debug(f"Crawling Directory {directory}")
@@ -119,8 +123,9 @@ class Checker:
     def validate_internal_urls(self) -> None:
         # Get the directory of the file
         for url in self.internal_urls:
+            self.LOGGER.debug(f"Checking internal URL: {url}")
             if url in self.options["ignore_urls"]:
-                self.LOGGER.debug(f"Ignoring URL: {url}")
+                self.LOGGER.info(f"Ignoring URL: {url}")
             elif url in self.failures.values():
                 self.LOGGER.debug(f"URL check already failed: {url}")
             else:
@@ -128,7 +133,7 @@ class Checker:
                 if Internal(url, LOGGER=self.LOGGER, options=self.options, base_url=self.base_url).validate():
                     self.LOGGER.info(f"Found URL: {url}")
                 else:
-                    # self.LOGGER.error(f"URL missing: {url}")
+                    self.LOGGER.error(f"URL missing: {url}")
                     if self.current_url in self.failures.keys():
                         self.failures[self.current_url].append(url)
                     else:

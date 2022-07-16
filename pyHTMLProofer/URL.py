@@ -48,17 +48,22 @@ class Internal(URL):
         self.LOGGER.debug(f"Base URL (Internal): {self.base_url}")
         # self.LOGGER.debug(f"Checking internal URL: {self.url}")
         internal_reference = None
-        internal_url_path = self.base_url + self.url.rstrip("/")
+        if self.url.startswith(self.base_url):
+            internal_url_path = self.url.rstrip("/")
+        else:
+            internal_url_path = self.base_url + self.url.rstrip("/")
 
         result = False
 
         if "#" in internal_url_path:
             internal_reference = f"#{internal_url_path.split('#')[1]}"
             internal_url_path = internal_url_path.split("#")[0]
+            # self.LOGGER.error(f"Here: {internal_url_path}")
+            # self.LOGGER.error(f"Internal reference found: {internal_reference}")
 
         if path.isfile(internal_url_path):
             result = True
-            if internal_reference:
+            if internal_reference is not None:
                 result = self.check_reference(internal_url_path, internal_reference)
         elif path.isfile(f"{internal_url_path}{self.options['assume_extension']}"):
             result = True
@@ -72,7 +77,6 @@ class Internal(URL):
                 result = self.check_reference(
                     f"{internal_url_path}/{self.options['directory_index_file']}", internal_reference
                 )
-
         return result
 
     def check_reference(self, internal_url_path, internal_reference):

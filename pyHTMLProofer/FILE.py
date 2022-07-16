@@ -23,7 +23,6 @@ class FILE:
         self.LOGGER.debug(f"Checking file: {self.file_path}")
         if not path.isfile(self.file_path):
             self.LOGGER.error(f"File does not exist: {self.file_path}")
-
         else:
             # If file exists, get the HTML soup
             self.LOGGER.debug(f"File exists: {self.file_path}")
@@ -41,7 +40,7 @@ class FILE:
             for url in file_internal_urls:
                 if url.startswith("#"):
                     url = self.file_path + url
-                    # self.LOGGER.error(f"Internal link with hash: {url}")
+                    self.LOGGER.debug(f"Internal reference found: {url}")
                 self.file_internal_urls[url] = [self.file_path]
 
         # Return empty lists if file doesn't exist
