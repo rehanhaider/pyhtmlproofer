@@ -1,1 +1,1 @@
-from .pyHTMLProofer import file
+from .pyHTMLProofer import file, directories

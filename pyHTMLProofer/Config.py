@@ -27,7 +27,6 @@ class Config:
             "User-Agent": f"Mozilla/5.0 (compatible; pyHTMLProofer/{__version__})",
             "Accept": "application/xml,application/xhtml+xml,text/html;q=0.9, text/plain;q=0.8,image/png,*/*;q=0.5",
         },
-        "connecttimeout": 10,
         "timeout": 10,
     }
 

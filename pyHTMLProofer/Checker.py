@@ -1,13 +1,12 @@
+from optparse import Option
+from time import sleep
 from typing import Union, Dict, Optional, List, AnyStr
 from os import path
 
-from requests.api import options
-
-# from wsgiref import validate
 from .Config import Config
 from .Log import Log
 from .FILE import FILE
-from .Utils import merge_urls
+from .Utils import merge_urls, crawl_directory
 from .URL import External, Internal
 
 
@@ -34,39 +33,65 @@ class Checker:
         # The format is {file_paths: [url1, url2, ...]}
         self.failures = {}
 
+        self.current_url = ""
+
     def check(self) -> None:
         if self.type == "file":
-            self.check_file()
+            self.check_file(self.source)
+        elif self.type == "directories":
+            self.check_directories(self.source)
 
         self.validate()
-        self.LOGGER.info("Failures: %s", self.failures)
+        self.LOGGER.info(f"Failures: {self.failures}")
 
-    def check_file(self) -> None:
+    def check_file(self, source: AnyStr, base_url: Optional[AnyStr] = None) -> None:
         # Raises an error if the file is not found.
         # This is specific to user provided file paths and not self-discovered ones
         # if not path.isfile(self.source):
         #    raise FileNotFoundError(f"File does not exist: {self.source}")
-        self.base_url = path.dirname(self.source)  # Used for internal file paths
+        if not base_url:  # Invoked in case of one file check otherwise set at global by the check_directories method
+            self.LOGGER.error("THis is a bug, please report it")
+            self.base_url = path.dirname(path.abspath(source))  # Used for internal file paths
+        self.LOGGER.debug(f"Base URL: {self.base_url}")
+        self.current_url = source
+        self.LOGGER.debug(f"Checking file: {source}")
 
         file_external_urls = {}
         file_internal_urls = {}
 
-        if self.source in self.options["ignore_files"]:
-            self.LOGGER.debug("Ignoring file: {self.source}")
-        elif self.source in self.failures:
-            self.LOGGER.debug("File check already failed: {self.source}")
+        if source in self.options["ignore_files"]:
+            self.LOGGER.info(f"Ignoring file: {self.source}")
+        elif source in self.failures:
+            self.LOGGER.debug(f"File check already failed: {self.source}")
         else:
-            self.LOGGER.debug("Initialising File Object: {self.source}")
+            self.LOGGER.debug(f"Initialising File Object: {self.source}")
             file = FILE(self)
             file_external_urls, file_internal_urls = file.check()
 
         # self.LOGGER.info("External URLs: %s", file_external_urls)
-        # self.LOGGER.info("Internal URLs: %s", file_internal_urls)
+        # self.LOGGER.error("Internal URLs: %s", file_internal_urls)
 
         self.external_urls = merge_urls(self.external_urls, file_external_urls)
         self.internal_urls = merge_urls(self.internal_urls, file_internal_urls)
 
-        self.LOGGER.info("External URLs: %s", file_external_urls)
+    def check_directories(self, directories: List) -> None:
+        files = []
+        for directory in directories:
+            self.LOGGER.error(f"Checking directory: {directory}")
+            self.base_url = path.abspath(directory)
+            self.LOGGER.debug(f"Base URL: {self.base_url}")
+
+            self.LOGGER.debug(f"Crawling Directory {directory}")
+            files.extend(crawl_directory(directory))
+            self.LOGGER.debug(f"Found {len(files)} files")
+
+            # Remove duplicate files
+            self.LOGGER.debug("Removing duplicate files")
+            files = list(set(files))
+
+            for file in files:
+                self.current_url = file
+                self.check_file(file, self.base_url)
 
     def validate(self) -> None:
         self.validate_external_urls()
@@ -74,22 +99,22 @@ class Checker:
 
     def validate_external_urls(self) -> None:
         if self.options["disable_external"]:
-            self.LOGGER.debug("External URL check disabled: Skipping")
+            self.LOGGER.info("External URL check disabled: Skipping")
             return
 
         for url in self.external_urls:
             if url in self.options["ignore_urls"]:
-                self.LOGGER.debug("Ignoring URL: %s", url)
+                self.LOGGER.info("Ignoring URL: %s", url)
             elif url in self.failures.values():
                 self.LOGGER.debug("URL check already failed: %s", url)
             else:
                 self.LOGGER.debug("Validating URL: %s", url)
                 status = External(url, self.options).validate()
                 if not status:
-                    if self.source in self.failures.keys():
-                        self.failures[self.source].append(url)
+                    if self.current_url in self.failures.keys():
+                        self.failures[self.current_url].append(url)
                     else:
-                        self.failures[self.source] = [url]
+                        self.failures[self.current_url] = [url]
 
     def validate_internal_urls(self) -> None:
         # Get the directory of the file
@@ -100,14 +125,14 @@ class Checker:
                 self.LOGGER.debug(f"URL check already failed: {url}")
             else:
                 self.LOGGER.debug(f"Validating URL: {url}")
-                if Internal(url, options=self.options, base_url=self.base_url).validate():
+                if Internal(url, LOGGER=self.LOGGER, options=self.options, base_url=self.base_url).validate():
                     self.LOGGER.info(f"Found URL: {url}")
                 else:
-                    self.LOGGER.error(f"URL missing: {url}")
-                    if self.source in self.failures.keys():
-                        self.failures[self.source].append(url)
+                    # self.LOGGER.error(f"URL missing: {url}")
+                    if self.current_url in self.failures.keys():
+                        self.failures[self.current_url].append(url)
                     else:
-                        self.failures[self.source] = [url]
+                        self.failures[self.current_url] = [url]
 
     def get_urls(self) -> Dict[AnyStr, List]:
         return self.external_urls, self.internal_urls

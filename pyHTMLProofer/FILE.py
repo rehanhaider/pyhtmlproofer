@@ -11,7 +11,7 @@ from .HTML import HTML
 
 class FILE:
     def __init__(self, checker: Checker) -> None:
-        self.file_path = checker.source
+        self.file_path = checker.current_url
         self.options = checker.options
         self.LOGGER = checker.LOGGER
         self.html_soup = None
@@ -30,7 +30,7 @@ class FILE:
             self.html_soup = self.get_html_soup()
 
             # Get the links from the HTML file
-            self.LOGGER.debug("Getting links from HTML file: %s", self.file_path)
+            self.LOGGER.debug(f"Getting links from HTML file: {self.file_path}")
             html = HTML(self.html_soup, options=self.options)
             file_external_urls, file_internal_urls = html.get_links()
 
@@ -39,6 +39,9 @@ class FILE:
                 self.file_external_urls[url] = [self.file_path]
 
             for url in file_internal_urls:
+                if url.startswith("#"):
+                    url = self.file_path + url
+                    self.LOGGER.error(f"Internal link with hash: {url}")
                 self.file_internal_urls[url] = [self.file_path]
 
         # Return empty lists if file doesn't exist
@@ -48,7 +51,7 @@ class FILE:
         # self.check_scripts()
 
     def get_html_soup(self):
-        self.LOGGER.debug("Getting HTML Soup: %s", self.file_path)
+        self.LOGGER.debug(f"Getting HTML Soup: {self.file_path}")
         with open(self.file_path, "r") as f:
             html_soup = BeautifulSoup(f.read(), "html5lib")
         return html_soup
