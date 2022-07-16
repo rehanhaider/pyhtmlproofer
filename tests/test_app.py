@@ -1,30 +1,11 @@
 import pyHTMLProofer
-from pyHTMLProofer.Version import __version__
 
 
 def test_app():
     """Tests the app."""
-    sitemap = "https://cloudbytes.dev/sitemap.xml"
-    pyHTMLProofer.check_sitemap(sitemap, options={"log_level": "INFO"}).run()
-
-
-urls = [
-    "https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi",
-]
-
-
-headers = {
-    "User-Agent": f"Mozilla/5.0 (compatible; pyHTMLProofer/{__version__})",
-    "Accept": "application/xml,application/xhtml+xml,text/html;q=0.9, text/plain;q=0.8,image/png,*/*;q=0.5",
-}
-
-
-def some():
-    import requests
-
-    for url in urls:
-        r = requests.get(url, headers=headers)
-        print(r.status_code)
-
-
-# some()
+    file_path = "tests/out/index.html"
+    options = {"log_level": "DEBUG", "ignore_files": ["tests/out/index.html"]}
+    options = {"log_level": "DEBUG", "disable_external": True}
+    options = {"log_level": "ERROR", "disable_external": True}
+    # pyHTMLProofer.file(file_path, options=options).check()
+    pyHTMLProofer.directories(["/workspaces/pyhtmlproofer/tests/out"], options=options).check()
