@@ -133,16 +133,17 @@ class Checker:
                     self.LOGGER.info(f"Found URL: {url}")
                 else:
                     self.LOGGER.error(f"URL missing: {url}")
-                    for source in sources:
-                        if source in self.failures.keys():
-                            self.failures[source].append(url)
-                        else:
-                            self.failures[source] = [url]
-            if self.failures:
-                print(self.failures)
+                    self.insert_failure(url, sources)
 
     def get_urls(self) -> Dict[AnyStr, List]:
         return self.external_urls, self.internal_urls
 
     def get_failures(self) -> List:
         return self.failures
+
+    def insert_failure(self, url: AnyStr, sources: List) -> None:
+        for source in sources:
+            if source in self.failures.keys():
+                self.failures[source].append(url)
+            else:
+                self.failures[source] = [url]
