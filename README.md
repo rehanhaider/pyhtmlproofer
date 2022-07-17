@@ -15,7 +15,7 @@ pyHTMLProofer at the moment does the following:
 1. Checks for broken internal links in HTML files
 2. Checks if external links in HTML or website link are valid
 
-You can read more details below in ![What's Tested?](#whats-tested) section.
+You can read more details below in [What's Tested?](#whats-tested) section.
 
 ### Roadmap
 The follower features are under development:
@@ -50,5 +50,11 @@ TBD
 TBD
 
 
-Real-Life examples:
+## Real-Life examples:
 TBD
+
+
+
+## Credits
+
+The inspiration was by Ruby based [HTMLProofer](https://github.com/gjtorikian/html-proofer) and lack of Python based alternatives. Although, [pyHTMLProofer](https://github.com/rehanhaider/pyhtmlproofer) is not a Python rewrite, instead it focuses on solving problems that I encountered while maintaining [CloudBytes/Dev>](https://cloudbytes.dev) website.
