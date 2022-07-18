@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>CloudBytes/dev&gt; - Books</title><link href="http://localhost:8080/" rel="alternate"></link><link href="http://localhost:8080/feeds/books.atom.xml" rel="self"></link><id>http://localhost:8080/</id><updated>2021-07-15T00:00:00+00:00</updated><entry><title>Build WebAPIs with Python using Flask &amp; FastAPI</title><link href="http://localhost:8080/books/build-webapis-with-python-using-flask-fastapi" rel="alternate"></link><published>2021-07-15T00:00:00+00:00</published><updated>2021-07-15T00:00:00+00:00</updated><author><name>Rehan Haider</name></author><id>tag:localhost,2021-07-15:/books/build-webapis-with-python-using-flask-fastapi</id><summary type="html">&lt;p&gt;Beginner's guide to building and interacting with APIs using Python Flask and FastAPI&lt;/p&gt;</summary><content type="html">&lt;p&gt;A hands-on project based guide to building APIs designed for beginners who have never built an API before or professionals who want a quick intro to FastAPI or Flask.&lt;/p&gt;
+&lt;p&gt;The book uses Python libraries such as Flask microframework that is used by the likes of Netflix, Airbnb, Uber, Instagram, etc. making its way up to modern framework like FastAPI, which is on par to any with NodeJS, and Go in terms of performance and quickly being adopted as the #1 API tools written in Python.&lt;/p&gt;
+&lt;p&gt;You will also learn efficient routing, type-hinting, data transfer, HTTP messages, form data handling, REST API design, and data validation techniques.&lt;/p&gt;
+&lt;p&gt;In this book you will learn&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Fundamentals of APIs&lt;/li&gt;
+&lt;li&gt;Introduction to tools for API development&lt;/li&gt;
+&lt;li&gt;Flask backend development using REST architecture&lt;/li&gt;
+&lt;li&gt;Connect to Front-end designed using Jinja2 templates&lt;/li&gt;
+&lt;li&gt;FastAPI backed / API design&lt;/li&gt;
+&lt;li&gt;Asynchronous API development&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Get it today at &lt;a href="https://www.amazon.com/dp/B09BJLKM6F"&gt;Amazon&lt;/a&gt; or &lt;a href="https://www.amazon.com/dp/B09BJLKM6F"&gt;Kindle&lt;/a&gt; !&lt;/p&gt;</content><category term="Books"></category><category term="python"></category><category term="fastapi"></category><category term="flask"></category><category term="heroku"></category><category term="github"></category><category term="jupyter"></category></entry></feed>
