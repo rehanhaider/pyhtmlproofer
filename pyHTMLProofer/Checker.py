@@ -73,6 +73,9 @@ class Checker:
         self.external_urls = merge_urls(self.external_urls, file_external_urls)
         self.internal_urls = merge_urls(self.internal_urls, file_internal_urls)
 
+        for url, source in self.internal_urls.items():
+            self.LOGGER.error(f"Source: {source}")
+
     def check_directories(self, directories: List) -> None:
         """Checks all files in the directories provided.
 
@@ -105,22 +108,20 @@ class Checker:
             self.LOGGER.info("External URL check disabled: Skipping")
             return
 
-        for url in self.external_urls:
+        for url, sources in self.external_urls.items():
             if url in self.options["ignore_urls"]:
                 self.LOGGER.info("Ignoring URL: %s", url)
             elif url in self.failures.values():
                 self.LOGGER.debug("URL check already failed: %s", url)
             else:
                 self.LOGGER.debug("Validating URL: %s", url)
-                status = External(url, self.options).validate()
-                if not status:
-                    if self.current_url in self.failures.keys():
-                        self.failures[self.current_url].append(url)
-                    else:
-                        self.failures[self.current_url] = [url]
+                if External(url, LOGGER=self.LOGGER, options=self.options).validate():
+                    self.LOGGER.info(f"Found URL: {url}")
+                else:
+                    self.LOGGER.error(f"URL missing: {url}")
+                    self.insert_failure(url, sources)
 
     def validate_internal_urls(self) -> None:
-
         for url, sources in self.internal_urls.items():
             self.LOGGER.debug(f"Checking internal URL: {url}")
             if url in self.options["ignore_urls"]:

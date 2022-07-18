@@ -1,15 +1,17 @@
 from typing import Dict, Optional
+from logging import Logger
+
+LOGGER = Logger("pyHTMLProofer")
 
 
 def merge_urls(urls: Dict, new_urls: Dict) -> Dict:
-
     if new_urls:
-        for new_url, new_source in new_urls.items():
-
+        for new_url, new_sources in new_urls.items():  # Structure is {url: [source1, source2]}
             if new_url in urls.keys():
-                urls[new_url].append(new_source)
+                for new_source in new_sources:  # Iterate over the values list - new_sources
+                    urls[new_url].append(new_source)
             else:
-                urls[new_url] = new_source
+                urls[new_url] = new_sources
     return urls
 
 
