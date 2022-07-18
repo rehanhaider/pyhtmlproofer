@@ -41,6 +41,7 @@ class FILE:
                 if url.startswith("#"):
                     url = self.file_path + url
                     self.LOGGER.debug(f"Internal reference found: {url}")
+                # self.LOGGER.error(self.file_path)
                 self.file_internal_urls[url] = [self.file_path]
 
         # Return empty lists if file doesn't exist

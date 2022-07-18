@@ -42,7 +42,7 @@ class Checker:
             self.check_directories(self.source)
 
         self.validate()
-        self.LOGGER.info(f"Failures: {self.failures}")
+        self.LOGGER.error(f"Failures: {self.failures}")
 
     def check_file(self, source: AnyStr, base_url: Optional[AnyStr] = None) -> None:
         # Raises an error if the file is not found.
@@ -59,19 +59,22 @@ class Checker:
         file_internal_urls = {}
 
         if source in self.options["ignore_files"]:
-            self.LOGGER.info(f"Ignoring file: {self.source}")
-        elif source in self.failures:
-            self.LOGGER.debug(f"File check already failed: {self.source}")
+            self.LOGGER.info(f"Ignoring file: {source}")
+        # elif source in self.failures: #TODO: Needs to check the list of all values in the failures dict
+        #     self.LOGGER.debug(f"File check already failed: {source}")
         else:
             self.LOGGER.debug("Initialising File Object...")
             file = FILE(self)
             file_external_urls, file_internal_urls = file.check()
 
-        # self.LOGGER.info("External URLs: %s", file_external_urls)
-        # self.LOGGER.info("Internal URLs: %s", file_internal_urls)
+        # self.LOGGER.error("External URLs: %s", file_external_urls)
+        # self.LOGGER.error("Internal URLs: %s", file_internal_urls)
 
         self.external_urls = merge_urls(self.external_urls, file_external_urls)
         self.internal_urls = merge_urls(self.internal_urls, file_internal_urls)
+
+        for url, source in self.internal_urls.items():
+            self.LOGGER.error(f"Source: {source}")
 
     def check_directories(self, directories: List) -> None:
         """Checks all files in the directories provided.
@@ -94,7 +97,6 @@ class Checker:
             files = list(set(files))
 
             for file in files:
-                self.current_url = file
                 self.check_file(file, self.base_url)
 
     def validate(self) -> None:
@@ -106,23 +108,21 @@ class Checker:
             self.LOGGER.info("External URL check disabled: Skipping")
             return
 
-        for url in self.external_urls:
+        for url, sources in self.external_urls.items():
             if url in self.options["ignore_urls"]:
                 self.LOGGER.info("Ignoring URL: %s", url)
             elif url in self.failures.values():
                 self.LOGGER.debug("URL check already failed: %s", url)
             else:
                 self.LOGGER.debug("Validating URL: %s", url)
-                status = External(url, self.options).validate()
-                if not status:
-                    if self.current_url in self.failures.keys():
-                        self.failures[self.current_url].append(url)
-                    else:
-                        self.failures[self.current_url] = [url]
+                if External(url, LOGGER=self.LOGGER, options=self.options).validate():
+                    self.LOGGER.info(f"Found URL: {url}")
+                else:
+                    self.LOGGER.error(f"URL missing: {url}")
+                    self.insert_failure(url, sources)
 
     def validate_internal_urls(self) -> None:
-        # Get the directory of the file
-        for url in self.internal_urls:
+        for url, sources in self.internal_urls.items():
             self.LOGGER.debug(f"Checking internal URL: {url}")
             if url in self.options["ignore_urls"]:
                 self.LOGGER.info(f"Ignoring URL: {url}")
@@ -134,13 +134,17 @@ class Checker:
                     self.LOGGER.info(f"Found URL: {url}")
                 else:
                     self.LOGGER.error(f"URL missing: {url}")
-                    if self.current_url in self.failures.keys():
-                        self.failures[self.current_url].append(url)
-                    else:
-                        self.failures[self.current_url] = [url]
+                    self.insert_failure(url, sources)
 
     def get_urls(self) -> Dict[AnyStr, List]:
         return self.external_urls, self.internal_urls
 
     def get_failures(self) -> List:
         return self.failures
+
+    def insert_failure(self, url: AnyStr, sources: List) -> None:
+        for source in sources:
+            if source in self.failures.keys():
+                self.failures[source].append(url)
+            else:
+                self.failures[source] = [url]
