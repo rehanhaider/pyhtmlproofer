@@ -18,7 +18,10 @@ class HTML:
         for link in links:
             if link.has_attr("href"):
                 url = link["href"]
-                if url.startswith("http") or url.startswith("//"):
+                if url.startswith("http"):
+                    self.external_urls.append(url)
+                elif url.startswith("//"):
+                    url = f"https:{url}"
                     self.external_urls.append(url)
                 else:
                     self.internal_urls.append(url)

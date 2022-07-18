@@ -22,7 +22,11 @@ def crawl_directory(directory: str, options: Optional[Dict] = None) -> Dict:
     import glob
     from os import path
 
-    if not isinstance(directory, str):
-        raise TypeError("Input is not a directory")
+    # raise an error if the directory doesn't exist
+    if not path.exists(directory):
+        raise FileNotFoundError(f"Directory {directory} does not exist")
+
+    # if not isinstance(directory, str):
+    #    raise TypeError("Input is not a directory")
 
     return list(glob.glob(f"{directory}/**/*.html", recursive=True))

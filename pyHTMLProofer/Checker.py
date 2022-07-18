@@ -40,8 +40,12 @@ class Checker:
             self.check_file(self.source)
         elif self.type == "directories":
             self.check_directories(self.source)
+        # elif self.type == "link":
+        # TODO: Implement link check
 
         self.validate()
+
+        return self.failures
         # self.LOGGER.error(f"Failures: {self.failures}")
 
     def check_file(self, source: AnyStr, base_url: Optional[AnyStr] = None) -> None:
@@ -50,7 +54,11 @@ class Checker:
         # if not path.isfile(self.source):
         #    raise FileNotFoundError(f"File does not exist: {self.source}")
         if not base_url:  # Invoked in case of one file check otherwise set at global by the check_directories method
+            # If base URL is not provided and a single filename is provided, raise an error if the file is not found
+            if not path.isfile(source):
+                raise FileNotFoundError(f"File does not exist: {source}")
             self.base_url = path.dirname(path.abspath(source))  # Used for internal file paths
+
         self.LOGGER.debug(f"Base URL: {self.base_url}")
         self.current_url = source
         self.LOGGER.debug(f"Checking file: {source}")
@@ -82,11 +90,12 @@ class Checker:
         files = []
         for directory in directories:
             self.LOGGER.debug(f"Checking directory: {directory}")
-            self.base_url = directory
+            # Convert relative path to absolute path
+            self.base_url = path.abspath(directory)
             self.LOGGER.debug(f"Base URL: {self.base_url}")
 
             self.LOGGER.debug(f"Crawling Directory {directory}")
-            files.extend(crawl_directory(directory))
+            files.extend(crawl_directory(self.base_url))
             self.LOGGER.debug(f"Found {len(files)} files")
 
             # Remove duplicate files
@@ -115,7 +124,6 @@ class Checker:
                 if External(url, LOGGER=self.LOGGER, options=self.options).validate():
                     self.LOGGER.info(f"Found URL: {url}")
                 else:
-                    self.LOGGER.error(f"URL missing: {url}")
                     self.insert_failure(url, sources)
 
     def validate_internal_urls(self) -> None:
@@ -130,7 +138,6 @@ class Checker:
                 if Internal(url, LOGGER=self.LOGGER, options=self.options, base_url=self.base_url).validate():
                     self.LOGGER.info(f"Found URL: {url}")
                 else:
-                    self.LOGGER.error(f"URL missing: {url}")
                     self.insert_failure(url, sources)
 
     def get_urls(self) -> Dict[AnyStr, List]:
@@ -140,6 +147,7 @@ class Checker:
         return self.failures
 
     def insert_failure(self, url: AnyStr, sources: List) -> None:
+        self.LOGGER.error(f"URL missing: {url}  Sources: {sources}")
         for source in sources:
             if source in self.failures.keys():
                 self.failures[source].append(url)

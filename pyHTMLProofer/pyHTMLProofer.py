@@ -28,3 +28,6 @@ def directories(directories_path: List, options: Optional[Dict] = None) -> None:
     options["type"] = "directories"
 
     return Checker(directories_path, options=options)
+
+
+# TODO: Implement link check

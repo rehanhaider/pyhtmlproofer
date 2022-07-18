@@ -10,8 +10,8 @@ class Config:
 
     PROOFER_DEFAULTS = {
         "assume_extension": ".html",
-        "check_external_hash": True,
-        "checks": DEFAULT_TESTS,
+        "check_external_hash": False,  # TODO: implement this to check reference in external files
+        "checks": DEFAULT_TESTS,  # TODO: Only links are supported at the moment. Add more tests for "Links", "Images" & "Scripts"
         "directory_index_file": "index.html",
         "disable_external": False,
         "ignore_files": [],
@@ -22,15 +22,15 @@ class Config:
     }
 
     HTTP_DEFAULTS = {
-        "followlocation": True,
+        "followlocation": True,  # TODO: implement this to follow redirects
         "headers": {
             "User-Agent": f"Mozilla/5.0 (compatible; pyHTMLProofer/{__version__})",
             "Accept": "application/xml,application/xhtml+xml,text/html;q=0.9, text/plain;q=0.8,image/png,*/*;q=0.5",
         },
-        "timeout": 10,
+        "timeout": 10,  # TODO: implement this to set a timeout
     }
 
-    AIOHTTP_DEFAULTS = {
+    AIOHTTP_DEFAULTS = {  # TODO: implement this for parallel requests
         "max_concurrency": 10,
     }
 
