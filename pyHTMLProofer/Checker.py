@@ -42,7 +42,7 @@ class Checker:
             self.check_directories(self.source)
 
         self.validate()
-        self.LOGGER.error(f"Failures: {self.failures}")
+        # self.LOGGER.error(f"Failures: {self.failures}")
 
     def check_file(self, source: AnyStr, base_url: Optional[AnyStr] = None) -> None:
         # Raises an error if the file is not found.
@@ -72,9 +72,6 @@ class Checker:
 
         self.external_urls = merge_urls(self.external_urls, file_external_urls)
         self.internal_urls = merge_urls(self.internal_urls, file_internal_urls)
-
-        for url, source in self.internal_urls.items():
-            self.LOGGER.error(f"Source: {source}")
 
     def check_directories(self, directories: List) -> None:
         """Checks all files in the directories provided.
