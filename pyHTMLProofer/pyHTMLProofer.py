@@ -2,7 +2,7 @@ from typing import AnyStr, Dict, List, Optional
 from .Checker import Checker
 
 
-def file(file_path: AnyStr, options: Optional[Dict] = None) -> None:
+def file(file_path: AnyStr, options: Optional[Dict] = None) -> Checker:
     """
     Check a file.
     """
@@ -16,7 +16,7 @@ def file(file_path: AnyStr, options: Optional[Dict] = None) -> None:
     return Checker(file_path, options=options)
 
 
-def directories(directories_path: List, options: Optional[Dict] = None) -> None:
+def directories(directories_path: List, options: Optional[Dict] = None) -> Checker:
     """
     Check a directory.
     """
@@ -31,3 +31,15 @@ def directories(directories_path: List, options: Optional[Dict] = None) -> None:
 
 
 # TODO: Implement link check
+def check_links(links: List, options: Optional[Dict] = None) -> Checker:
+    """
+    Check a list of links.
+    """
+
+    # Raise error if links is not a list
+    if not isinstance(links, list):
+        raise TypeError("Input must be a list of links")
+
+    options["type"] = "links"
+
+    return Checker(links, options=options)
