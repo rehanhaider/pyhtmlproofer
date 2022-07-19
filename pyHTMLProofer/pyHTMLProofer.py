@@ -31,7 +31,7 @@ def directories(directories_path: List, options: Optional[Dict] = None) -> Check
 
 
 # TODO: Implement link check
-def check_links(links: List, options: Optional[Dict] = None) -> Checker:
+def links(links: List, options: Optional[Dict] = None) -> Checker:
     """
     Check a list of links.
     """

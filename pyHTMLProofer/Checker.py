@@ -40,7 +40,9 @@ class Checker:
             self.check_file(self.source)
         elif self.type == "directories":
             self.check_directories(self.source)
-        # elif self.type == "link":
+        elif self.type == "link":
+            self.check_link(self.source)
+            return self.failures
         # TODO: Implement link check
 
         self.validate()
@@ -105,6 +107,19 @@ class Checker:
             for file in files:
                 self.check_file(file, self.base_url)
 
+    def check_link(self, link: AnyStr) -> None:
+        self.LOGGER.debug(f"Checking link: {link}")
+        if link in self.options["ignore_urls"]:
+            self.LOGGER.info(f"Ignoring link: {link}")
+        # elif link in self.failures.values(): #TODO: To be fixed. failures.values returns a list of lists
+        #    self.LOGGER.debug(f"Link check already failed: {link}")
+        else:
+            self.LOGGER.debug(f"Validating link: {link}")
+            if External(link, LOGGER=self.LOGGER, options=self.options).validate():
+                self.LOGGER.info(f"Found link: {link}")
+            else:
+                self.insert_failure(link, "External URL")
+
     def validate(self) -> None:
         self.validate_external_urls()
         self.validate_internal_urls()
@@ -117,8 +132,8 @@ class Checker:
         for url, sources in self.external_urls.items():
             if url in self.options["ignore_urls"]:
                 self.LOGGER.info("Ignoring URL: %s", url)
-            elif url in self.failures.values():
-                self.LOGGER.debug("URL check already failed: %s", url)
+            # elif url in self.failures.values(): #TODO: To be fixed. failures.values returns a list of lists
+            #    self.LOGGER.debug("URL check already failed: %s", url)
             else:
                 self.LOGGER.debug("Validating URL: %s", url)
                 if External(url, LOGGER=self.LOGGER, options=self.options).validate():
