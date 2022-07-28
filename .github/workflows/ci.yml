@@ -5,7 +5,6 @@ on:
     branches:
       - main
     paths-ignore:
-      - .github/actions/**
       - "README.md"
       - ".gitignore"
       - ".devcontainer/**"
@@ -28,3 +27,11 @@ jobs:
         run: pdm install
       - name: Run tests
         run: pdm run pytest
+      - name: Build the package
+        run: pdm build
+      - name: Deploy to PyPI
+        run: pdm publish
+        env:
+          PDM_PUBLISH_USERNAME: __token__
+          PDM_PUBLISH_PASSWORD: "${{ secrets.PYHTMLPROOFER_PYPI_API_TOKEN }}"
+
