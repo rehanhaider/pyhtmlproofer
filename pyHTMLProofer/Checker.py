@@ -1,4 +1,3 @@
-from optparse import Option
 from time import sleep
 from typing import Union, Dict, Optional, List, AnyStr
 from os import path
@@ -43,7 +42,8 @@ class Checker:
         elif self.type == "link":
             self.check_link(self.source)
             return self.failures
-        # TODO: Implement link check
+        else:
+            raise ValueError(f"Invalid type: {self.type}")
 
         self.validate()
 
