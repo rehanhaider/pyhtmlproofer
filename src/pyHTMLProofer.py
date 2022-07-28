@@ -1,5 +1,5 @@
 from typing import AnyStr, Dict, List, Optional
-from .Checker import Checker
+from Checker import Checker
 
 
 def file(file_path: AnyStr, options: Optional[Dict] = None) -> Checker:

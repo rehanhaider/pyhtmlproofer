@@ -2,11 +2,11 @@ from time import sleep
 from typing import Union, Dict, Optional, List, AnyStr
 from os import path
 
-from .Config import Config
-from .Log import Log
-from .FILE import FILE
-from .Utils import merge_urls, crawl_directory
-from .URL import External, Internal
+from Config import Config
+from Log import Log
+from FILE import FILE
+from Utils import merge_urls, crawl_directory
+from URL import External, Internal
 
 
 class Checker:

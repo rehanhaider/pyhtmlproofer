@@ -1,7 +1,7 @@
 from os import curdir
 from sys import intern
 from typing import AnyStr, Dict, Optional
-from .HTML import HTML
+from HTML import HTML
 from bs4 import BeautifulSoup
 
 

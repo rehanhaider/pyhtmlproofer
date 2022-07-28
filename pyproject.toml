@@ -3,52 +3,32 @@ name = "pyhtmlproofer"
 dynamic = ["version"]
 description = "pyHtmlProofer - A tool for validating internal & external links in HTML files / Websites"
 authors = [
-    {name = "Rehan Haider", email = ""},
+    {name = "Rehan Haider", email = "email@rehanhaider.com"},
 ]
 dependencies = [
     "requests>=2.28.1",
-    "aiohttp",
-    "beautifulsoup4>=4.11.1",
-    "pyhtmlproofer @ file:///${PROJECT_ROOT}",
+    "bs4>=0.0.1",
     "lxml>=4.9.1",
     "html5lib>=1.1",
 ]
-requires-python = ">=3.9"
+requires-python = ">=3.7"
 readme = "README.md"
 license = {text = "MIT"}
-
 [project.optional-dependencies]
-
-
-
-[tool.autopub]
-project-name = "PYHTMLPROOFER"
-git-username = "rehanhaider"
-git-email = "email@rehanhaider.com"
-
 
 [tool.pdm]
 includes = []
 version = { source = "file", path = "src/__version__.py" }
-
-
 [tool.pdm.dev-dependencies]
-dev = [
-    "pytest>=7.1.2",
-    "pyhtmlproofer @ file:///${PROJECT_ROOT}",
-]
 test = [
-    "pyhtmlproofer @ file:///${PROJECT_ROOT}",
+    "pytest>=7.1.2",
+    "pyHtmlProofer>=0.1.2",
 ]
-
-[tool.pdm.build]
-package-dir = "src"
-
-
 
 [build-system]
-requires = ["pdm-pep517>=0.12.0"]
+requires = ["pdm-pep517>=1.0.0"]
 build-backend = "pdm.pep517.api"
+
 
 [tool.pytest.ini_options]
 minversion = "6.0"
@@ -59,4 +39,3 @@ log_cli = "True"
 log_level = "DEBUG"
 log_format = "%(levelname)s %(message)s"
 log_file = "pytest.log"
-

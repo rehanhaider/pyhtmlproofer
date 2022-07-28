@@ -1,8 +1,8 @@
 import pytest
-import src
+import pyHTMLProofer
 from bs4 import BeautifulSoup
 import glob
-from src.Checker import Checker
+from pyHTMLProofer import Checker
 
 
 options = {"log_level": "ERROR", "disable_external": True}
@@ -11,7 +11,7 @@ options = {"log_level": "ERROR", "disable_external": True}
 def test_directory():
     """Tests the check links function."""
     directory_paths = ["tests/cases/2/"]
-    failures = src.directories(directory_paths, options=options).check()
+    failures = pyHTMLProofer.directories(directory_paths, options=options).check()
 
     assert len(failures) == 0
 
