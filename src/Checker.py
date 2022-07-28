@@ -21,7 +21,7 @@ class Checker:
         self.type = self.options.pop("type")
         self.source = source
 
-        self.LOGGER = Log(log_level=options["log_level"]).LOGGER
+        self.LOGGER = Log(log_level=self.options["log_level"]).LOGGER
 
         # Initialise empty dictionaries
         # URL dict format is {url: [source1, source2, ...]}

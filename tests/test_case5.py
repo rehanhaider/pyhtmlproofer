@@ -1,6 +1,6 @@
 import pyHTMLProofer
 
-options = {"log_level": "ERROR", "disable_external": True}
+options = {"log_level": "ERROR"}
 
 
 links = ["https://example.com", "https://cloudbytes.dev"]
