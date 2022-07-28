@@ -1,7 +1,7 @@
 [project]
 name = "pyhtmlproofer"
 version = "0.1.1"
-description = "htmlproofer - A tool for validating internal & external links in HTML files / Websites"
+description = "pyHtmlProofer - A tool for validating internal & external links in HTML files / Websites"
 authors = [
     {name = "Rehan Haider", email = ""},
 ]

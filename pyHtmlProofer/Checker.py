@@ -39,9 +39,10 @@ class Checker:
             self.check_file(self.source)
         elif self.type == "directories":
             self.check_directories(self.source)
-        elif self.type == "link":
-            self.check_link(self.source)
-            return self.failures
+        elif self.type == "links":
+            for link in self.source:
+                self.check_link(link)
+            return self.failures  # Checks the links and not crawls them for external URLs
         else:
             raise ValueError(f"Invalid type: {self.type}")
 
@@ -118,7 +119,7 @@ class Checker:
             if External(link, LOGGER=self.LOGGER, options=self.options).validate():
                 self.LOGGER.info(f"Found link: {link}")
             else:
-                self.insert_failure(link, "External URL")
+                self.insert_failure(link, ["External URL"])
 
     def validate(self) -> None:
         self.validate_external_urls()
@@ -167,4 +168,4 @@ class Checker:
             if source in self.failures.keys():
                 self.failures[source].append(url)
             else:
-                self.failures[source] = [url]
+                self.failures[source] = url

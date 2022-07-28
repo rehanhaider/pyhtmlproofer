@@ -1,4 +1,4 @@
-from pyHTMLProofer.Version import __version__
+from pyHtmlProofer.Version import __version__
 
 
 class Config:
