@@ -1,6 +1,6 @@
 [project]
 name = "pyhtmlproofer"
-version = "0.1.1"
+dynamic = ["version"]
 description = "pyHtmlProofer - A tool for validating internal & external links in HTML files / Websites"
 authors = [
     {name = "Rehan Haider", email = ""},
@@ -16,7 +16,10 @@ dependencies = [
 requires-python = ">=3.9"
 readme = "README.md"
 license = {text = "MIT"}
+
 [project.optional-dependencies]
+
+
 
 [tool.autopub]
 project-name = "PYHTMLPROOFER"
@@ -26,6 +29,9 @@ git-email = "email@rehanhaider.com"
 
 [tool.pdm]
 includes = []
+version = { source = "file", path = "src/__version__.py" }
+
+
 [tool.pdm.dev-dependencies]
 dev = [
     "pytest>=7.1.2",
@@ -34,6 +40,12 @@ dev = [
 test = [
     "pyhtmlproofer @ file:///${PROJECT_ROOT}",
 ]
+
+[tool.pdm.build]
+package-dir = "src"
+
+
+
 [build-system]
 requires = ["pdm-pep517>=0.12.0"]
 build-backend = "pdm.pep517.api"

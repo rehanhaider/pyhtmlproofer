@@ -1,8 +1,8 @@
 import pytest
-import pyHtmlProofer
+import src
 from bs4 import BeautifulSoup
 import glob
-from pyHtmlProofer.Checker import Checker
+from src.Checker import Checker
 
 options = {"log_level": "ERROR"}
 
@@ -11,7 +11,7 @@ def test_external_links():
     """Tests the external links function discovered from a file."""
 
     file_path = ["tests/cases/3/"]
-    failures = pyHtmlProofer.directories(file_path, options=options).check()
+    failures = src.directories(file_path, options=options).check()
 
     assert len(failures) == 0
 
