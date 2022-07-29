@@ -39,9 +39,9 @@ jobs:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "latest"
           prerelease: False
-          title: "Development Build"
+          title: "Latest"
           files: |
-            src/*
+            src
             LICENSE
             pdm.lock
             pyproject.toml
