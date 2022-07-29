@@ -12,12 +12,12 @@ on:
 
 
 jobs:
-  build:
+  reusable_workflow_job:
     name: Build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: rehanhaider/pyhtmlproofer/.github/workflows/prepare_env@main
+      - uses: rehanhaider/pyhtmlproofer/.github/workflows/prepare_env.yml@main
       - name: Run tests
         run: pdm run pytest
       - name: Build the package
