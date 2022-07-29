@@ -10,3 +10,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo fuck
+      - uses: ./.github/workflows/prepare_envs.yml
