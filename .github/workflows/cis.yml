@@ -8,6 +8,6 @@ on:
 jobs:
   job2:
     runs-on: ubuntu-latest
+    uses: ./.github/workflows/prepare_envs.yml
     steps:
       - run: echo fuck
-      - uses: ./.github/workflows/prepare_envs.yml
