@@ -25,8 +25,10 @@ The follower features are under development:
 
 
 ## Installation
-TBD
-
+Install pyHTMLProofer with pip:
+```
+pip install pyhtmlproofer
+```
 
 ## What's tested?
 
@@ -44,15 +46,57 @@ You can configure pyHTMLProofer to check:
 - If the external links are valid
 
 ## Usage
-TBD
+To check a file:
+```python
+import pyHtmlProofer
+file = "path/to/file1.html"
+pyHtmlProofer.file(file).check()
+```
+
+To check a directories:
+```python
+import pyHtmlProofer
+directory_paths = ["path/to/1/file.html", "path/to/2/file.html"]
+pyHtmlProofer.directories(directory_paths).check()
+```
+
+To validate URL(s):
+```python
+import pyHtmlProofer
+links = ["https://example.com", "https://cloudbytes.dev"]
+pyHtmlProofer.links(links).check()
+```
+
+
+
+
 
 ## Available Config Options
-TBD
 
 
-## Real-Life examples:
-TBD
+```python
+PROOFER_DEFAULTS = {
+    "assume_extension": ".html",
+    "directory_index_file": "index.html",
+    "disable_external": False,
+    "ignore_files": [],
+    "ignore_urls": [],
+    "enforce_https": True,
+    "extensions": [".html"],
+    "log_level": "INFO",
+}
+```
 
+You can override the default configuration options by passing a dictionary of options.
+
+```python
+import pyHtmlProofer
+
+options = {"log_level": "ERROR", "disable_external": True}
+directory_paths = ["path/to/1/file.html", "path/to/2/file.html"]
+
+pyHtmlProofer.directories(directory_paths, , options=options).check()
+```
 
 
 ## Credits
