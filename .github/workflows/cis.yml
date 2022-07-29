@@ -5,9 +5,7 @@ on:
     branches:
       - main
 
-jobs:
-  job1:
-    uses: ./.github/workflows/prepare_envs@main
+
 
   job2:
     runs-on: ubuntu-latest
