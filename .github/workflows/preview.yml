@@ -1,0 +1,34 @@
+name: Preview
+
+on:
+  pull_request:
+    paths-ignore:
+      - ".gitignore"
+      - ".devcontainer/**"
+      - ".vscode/**"
+
+
+jobs:
+  build:
+    name: CI & Publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pdm-project/setup-pdm@main
+        name: Setup PDM
+        with:
+          python-version: "3.8"
+          architecture: "x64"
+          enable-pep582: true
+      - name: Install dependencies
+        run: pdm install
+      - name: Run tests
+        run: pdm run pytest
+      - name: Build the package
+        run: pdm build
+      - name: Deploy to PyPI
+        run: pdm publish -r https://test.pypi.org/simple
+        env:
+          PDM_PUBLISH_USERNAME: __token__
+          PDM_PUBLISH_PASSWORD: "${{ secrets.PYHTMLPROOFER_TEST_PYPI_API_TOKEN }}"
+
