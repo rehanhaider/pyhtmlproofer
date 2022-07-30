@@ -1,10 +1,11 @@
+[![CI](https://github.com/rehanhaider/pyhtmlproofer/actions/workflows/ci.yml/badge.svg)](https://github.com/rehanhaider/pyhtmlproofer/actions)
+[![PyPI Version](https://img.shields.io/pypi/v/pyhtmlproofer?color=blue)](https://pypi.org/project/pyhtmlproofer/)
+![License](https://img.shields.io/github/license/rehanhaider/pyhtmlproofer?color=blue)
+
 # pyHTMLProofer
 
 Check for website and static HTML pages for link rot.
 
-[![CI](https://github.com/rehanhaider/pyhtmlproofer/actions/workflows/ci.yml/badge.svg)](https://github.com/rehanhaider/pyhtmlproofer/actions)
-[![PyPI Version](https://img.shields.io/pypi/v/pyhtmlproofer?color=blue)](https://pypi.org/project/pyhtmlproofer/)
-![License](https://img.shields.io/github/license/rehanhaider/pyhtmlproofer?color=blue)
 
 ## Features
 
