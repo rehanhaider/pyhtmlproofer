@@ -104,7 +104,6 @@ class Checker:
             # Remove duplicate files
             self.LOGGER.debug("Removing duplicate files")
             files = list(set(files))
-
             for file in files:
                 self.check_file(file, self.base_url)
 

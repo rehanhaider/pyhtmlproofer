@@ -27,7 +27,6 @@ class FILE:
             # If file exists, get the HTML soup
             self.LOGGER.debug(f"File exists: {self.file_path}")
             self.html_soup = self.get_html_soup()
-
             # Get the links from the HTML file
             self.LOGGER.debug(f"Getting links from HTML file: {self.file_path}")
             html = HTML(self.html_soup, options=self.options)
@@ -46,9 +45,6 @@ class FILE:
 
         # Return empty lists if file doesn't exist
         return self.file_external_urls, self.file_internal_urls
-        # self.check_links()
-        # self.check_images()
-        # self.check_scripts()
 
     def get_html_soup(self):
         self.LOGGER.debug(f"Getting HTML Soup: {self.file_path}")
