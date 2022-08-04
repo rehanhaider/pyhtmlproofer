@@ -24,7 +24,6 @@ def test_directory_links_count():
     checker = Checker(directory_paths, options=options)
 
     checker.check()
-
     assert get_links_count(directory_paths[0]) == len(checker.internal_urls.keys())
 
 
@@ -36,4 +35,6 @@ def get_links_count(directory_path):
         with open(file, "r") as f:
             soup = BeautifulSoup(f.read(), "html.parser")
             links.extend(link.get("href") for link in soup.find_all("a"))
+            links.extend(link.get("src") for link in soup.find_all("img"))
+            links.extend(link.get("src") for link in soup.find_all("script"))
     return len(set(links))

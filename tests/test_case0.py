@@ -23,3 +23,4 @@ def test_no_options_directory():
     failures = pyHtmlProofer.directories(directory_paths).check()
 
     assert len(failures) == 0
+
