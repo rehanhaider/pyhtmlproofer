@@ -18,15 +18,19 @@ pyHTMLProofer at the moment does the following:
 
 1. Checks for broken internal links in HTML files
 2. Checks if external links in HTML or website link are valid
+3. Check for scripts / stylesheets in HTML files
+4. Check for images in HTML files
 
 You can read more details below in [What's Tested?](#whats-tested) section.
 
 ### Roadmap
 The follower features are under development:
-1. Check for scripts / stylesheets in HTML files
-2. Check for images and alt-text in HTML files
-3. Check entire website using Sitemap
 
+1. Check for images and alt-text in HTML files
+2. Check Favicons
+3. Check optimal SEO meta tags
+4. Caching results
+5. Config file
 
 ## Installation
 Install pyHTMLProofer with pip:
@@ -43,11 +47,30 @@ You can configure pyHTMLProofer to check:
 - a URL / Link
 
 
-`a` elements: PyHTMLProofer checks - 
+### Links / Hyperlinks
+
+`a`, `link` elements: PyHTMLProofer checks - 
 
 - If the internal links are valid
 - If the internal references (`#in-page-links`) are valid
 - If the external links are valid
+ 
+
+### Images
+
+`img` elements: PyHTMLProofer checks -
+
+- if the internal image references are valid
+- if the external image references are valid
+
+
+### Scripts
+
+`script` elements: PyHTMLProofer checks -
+- If the internal script references are valid
+- If the external script references are reachable
+
+
 
 ## Usage
 To check a file:
@@ -71,12 +94,7 @@ links = ["https://example.com", "https://cloudbytes.dev"]
 pyHtmlProofer.links(links).check()
 ```
 
-
-
-
-
 ## Available Config Options
-
 
 ```python
 PROOFER_DEFAULTS = {
