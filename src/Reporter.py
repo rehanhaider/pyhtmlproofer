@@ -15,7 +15,8 @@ class Reporter:
         """
         Prints the results of the Checker.failures dictionary.
         """
-
+        self.console.print()
+        self.console.print("################################################################################")
         if not self.failures:
             self.console.print("No failures found.")
             return
@@ -27,6 +28,7 @@ class Reporter:
 
         # Print the files that have failures
         self.console.print("\nFailures:")
+        self.console.print("--------------------------------------------------------------------------------")
         for file_path, urls in self.failures.items():
             self.console.print(f"File: {file_path}:")
             for url in urls:
