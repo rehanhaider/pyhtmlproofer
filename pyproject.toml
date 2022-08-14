@@ -20,11 +20,15 @@ license = {text = "MIT"}
 [tool.pdm]
 includes = []
 version = { source = "file", path = "src/__version__.py" }
+
 [tool.pdm.dev-dependencies]
 test = [
     "pytest>=7.1.2",
     "pyhtmlproofer @ file:///${PROJECT_ROOT}",
 ]
+
+[tool.pdm.build]
+package-dir = "src"
 
 
 [build-system]

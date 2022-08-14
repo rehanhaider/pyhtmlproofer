@@ -13,13 +13,17 @@ on:
 jobs:
   build:
     name: CI & Publish
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        python-version: ["3.7", "3.8", "3.9", "3.10"]
+        os: [ubuntu-latest, macOS-latest, windows-latest]
     steps:
       - uses: actions/checkout@v3
-      - uses: pdm-project/setup-pdm@main
-        name: Setup PDM
+      - name: Setup PDM
+        uses: pdm-project/setup-pdm@main
         with:
-          python-version: "3.8"
+          python-version: ${{ matrix.python-version }}
           architecture: "x64"
           enable-pep582: true
       - name: Install dependencies
