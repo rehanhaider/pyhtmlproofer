@@ -19,8 +19,8 @@ jobs:
         python-version: ["3.8", "3.9", "3.10"]
         os: [ubuntu-latest, macOS-latest, windows-latest]
     steps:
+      - uses: actions/checkout@v3
       - name: Setup PDM
-        uses: actions/checkout@v3
         uses: pdm-project/setup-pdm@main
         with:
           python-version: ${{ matrix.python-version }}
@@ -32,8 +32,10 @@ jobs:
         run: pdm run pytest
   deploy:
     name: Deploy
+    needs: [test]
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
       - name: Setup PDM
         uses: pdm-project/setup-pdm@main
         with:
