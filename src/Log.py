@@ -26,11 +26,3 @@ class Log:
         logging.basicConfig(level=eval(f"logging.{log_level}"), format=FORMAT, datefmt=" ", handlers=[RichHandler()])
         self.LOGGER = logging.getLogger(__name__)
         # self.LOGGER.setLevel(eval(f"logging.{log_level}"))
-
-    def debug(self, message: str):
-        """Log a debug message.
-
-        Args:
-            message (str): The message to log.
-        """
-        self.LOGGER.debug(message)
