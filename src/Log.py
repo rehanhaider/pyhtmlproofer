@@ -1,4 +1,6 @@
 import logging
+from rich.console import Console
+from rich.logging import RichHandler
 
 
 class Log:
@@ -20,6 +22,15 @@ class Log:
             raise ValueError(f"Log level must be one of the following: {DEFAULT_LEVELS}")
 
         # Fix this in future
-        logging.basicConfig(level=eval(f"logging.{log_level}"))
-        self.LOGGER = logging.getLogger("pyHTMLProofer")
-        self.LOGGER.setLevel(eval(f"logging.{log_level}"))
+        FORMAT = "%(message)s"
+        logging.basicConfig(level=eval(f"logging.{log_level}"), format=FORMAT, datefmt=" ", handlers=[RichHandler()])
+        self.LOGGER = logging.getLogger(__name__)
+        # self.LOGGER.setLevel(eval(f"logging.{log_level}"))
+
+    def debug(self, message: str):
+        """Log a debug message.
+
+        Args:
+            message (str): The message to log.
+        """
+        self.LOGGER.debug(message)
