@@ -7,6 +7,7 @@ from Log import Log
 from FILE import FILE
 from Utils import merge_urls, crawl_directory
 from URL import External, Internal
+from Reporter import Reporter
 
 
 class Checker:
@@ -31,7 +32,6 @@ class Checker:
         # Initialise empty list
         # The format is {file_paths: [url1, url2, ...]}
         self.failures = {}
-
         self.current_url = ""
 
     def check(self) -> None:
@@ -47,6 +47,10 @@ class Checker:
             raise ValueError(f"Invalid type: {self.type}")
 
         self.validate()
+
+        # Report the erros using Reporter module
+        reporter = Reporter(self.failures)
+        reporter.report()
 
         return self.failures
         # self.LOGGER.error(f"Failures: {self.failures}")
@@ -167,4 +171,4 @@ class Checker:
             if source in self.failures.keys():
                 self.failures[source].append(url)
             else:
-                self.failures[source] = url
+                self.failures[source] = [url]
