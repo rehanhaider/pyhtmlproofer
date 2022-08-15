@@ -1,13 +1,16 @@
 from __future__ import annotations
-from tabnanny import check
 from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from Checker import Checker
 
 from rich.console import Console
 from typing import AnyStr
 import json
 
-if TYPE_CHECKING:
-    from Checker import Checker
+from __version__ import __version__
+
+import time
 
 
 class Reporter:
@@ -19,6 +22,7 @@ class Reporter:
         self.failures = checker.failures
         self.options = checker.options
         self.console = Console()
+        self.source = checker.source
 
     def report(self) -> None:
         """
@@ -55,7 +59,11 @@ class Reporter:
         """
         # Add "failures" key to the dictionary
         failures = {
-            "metadata": {"date": "2020-01-01"},
+            "metadata": {
+                "time": time.strftime("%Y-%m-%d %H:%M:%S"),
+                "version": __version__,
+                "input": self.source,
+            },
             "failures": self.failures,
         }
 
