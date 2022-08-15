@@ -18,7 +18,8 @@ class Config:
         "ignore_urls": [],
         "enforce_https": True,
         "extensions": [".html"],
-        "log_level": "INFO",
+        "log_level": "ERROR",
+        "report_to_file": True,
     }
 
     HTTP_DEFAULTS = {

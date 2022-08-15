@@ -51,6 +51,9 @@ class Checker:
         # Report the erros using Reporter module
         reporter = Reporter(self.failures)
         reporter.report()
+        # Report to file if enabled
+        if self.options["report_to_file"]:
+            reporter.report_to_file("pycheck.log")
 
         return self.failures
         # self.LOGGER.error(f"Failures: {self.failures}")

@@ -1,5 +1,6 @@
 from rich.console import Console
-from typing import Union, Dict, Optional, List, AnyStr
+from typing import Dict, List, AnyStr
+import json
 
 
 class Reporter:
@@ -27,6 +28,7 @@ class Reporter:
             self.console.print(f"{len(fails)} failures found in {len(self.failures)} files.")
 
         # Print the files that have failures
+        self.console.print("--------------------------------------------------------------------------------")
         self.console.print("\nFailures:")
         self.console.print("--------------------------------------------------------------------------------")
         for file_path, urls in self.failures.items():
@@ -39,3 +41,8 @@ class Reporter:
         """
         Prints the results of the Checker.failures dictionary to a file as JSON.
         """
+        # Add "failures" key to the dictionary
+        failures = {"failures": self.failures}
+
+        with open(file_path, "w") as file:
+            file.write(json.dumps(failures, indent=4))
