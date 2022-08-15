@@ -53,7 +53,7 @@ class Checker:
         reporter.report()
         # Report to file if enabled
         if self.options["report_to_file"]:
-            reporter.report_to_file("pycheck.log")
+            reporter.report_to_file(self.options["report_filename"])
 
         return self.failures
         # self.LOGGER.error(f"Failures: {self.failures}")
