@@ -37,7 +37,7 @@ class Reporter:
             fails = [failure for failures in self.failures.values() for failure in failures]
             # Print the number of failures and the files that have failures
             # add up the number elements in items()
-            self.console.print(f"{len(fails)} failures found in {len(self.failures)} files.")
+            self.console.print(f"[bold]{len(fails)} failures found in {len(self.failures)} files.[/bold]")
 
         # Print the files that have failures
         self.console.print("================================================================================")
