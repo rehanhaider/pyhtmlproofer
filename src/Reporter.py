@@ -29,7 +29,7 @@ class Reporter:
         Prints the results of the Checker.failures dictionary.
         """
         self.console.print()
-        self.console.print("################################################################################")
+        self.console.print("################################################################################\n")
         if not self.failures:
             self.console.print("No failures found.")
             return
@@ -40,11 +40,11 @@ class Reporter:
             self.console.print(f"{len(fails)} failures found in {len(self.failures)} files.")
 
         # Print the files that have failures
-        self.console.print("--------------------------------------------------------------------------------")
-        self.console.print("\nFailures:")
+        self.console.print("================================================================================")
+        self.console.print("Failures:")
         self.console.print("--------------------------------------------------------------------------------")
         for file_path, urls in self.failures.items():
-            self.console.print(f"File: {file_path}:")
+            self.console.print(f"[bold]File[/bold]: [green]{file_path}[/green]")
             for url in urls:
                 self.console.print(f"   URL:  {url}")
             self.console.print("")
