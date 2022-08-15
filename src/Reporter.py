@@ -31,17 +31,17 @@ class Reporter:
         self.console.print()
         self.console.print("################################################################################\n")
         if not self.failures:
-            self.console.print("No failures found.")
+            self.console.print("[green]No failures found.[/green]")
             return
         else:
             fails = [failure for failures in self.failures.values() for failure in failures]
             # Print the number of failures and the files that have failures
             # add up the number elements in items()
-            self.console.print(f"[bold]{len(fails)} failures found in {len(self.failures)} files.[/bold]")
+            self.console.print(f"{len(fails)} failures found in {len(self.failures)} files.\n")
 
         # Print the files that have failures
         self.console.print("================================================================================")
-        self.console.print("Failures:")
+        self.console.print("[bold red]Failures[/bold red]:")
         self.console.print("--------------------------------------------------------------------------------")
         for file_path, urls in self.failures.items():
             self.console.print(f"[bold]File[/bold]: [green]{file_path}[/green]")
@@ -49,11 +49,12 @@ class Reporter:
                 self.console.print(f"   URL:  {url}")
             self.console.print("")
 
+        self.console.print("================================================================================")
         # Write the report to file if the option is set
         if self.options["report_to_file"]:
-            self.report_to_file(self.options["report_filename"])
+            self._report_to_file(self.options["report_filename"])
 
-    def report_to_file(self, file_path: AnyStr) -> None:
+    def _report_to_file(self, file_path: AnyStr) -> None:
         """
         Prints the results of the Checker.failures dictionary to a file as JSON.
         """
