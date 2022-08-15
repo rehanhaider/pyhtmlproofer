@@ -1,4 +1,3 @@
-from time import sleep
 from typing import Union, Dict, Optional, List, AnyStr
 from os import path
 
@@ -79,9 +78,6 @@ class Checker:
             self.LOGGER.debug("Initialising File Object...")
             file = FILE(self)
             file_external_urls, file_internal_urls = file.check()
-
-        # self.LOGGER.error("External URLs: %s", file_external_urls)
-        # self.LOGGER.error("Internal URLs: %s", file_internal_urls)
 
         self.external_urls = merge_urls(self.external_urls, file_external_urls)
         self.internal_urls = merge_urls(self.internal_urls, file_internal_urls)
