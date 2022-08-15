@@ -49,14 +49,9 @@ class Checker:
         self.validate()
 
         # Report the erros using Reporter module
-        reporter = Reporter(self.failures)
-        reporter.report()
-        # Report to file if enabled
-        if self.options["report_to_file"]:
-            reporter.report_to_file(self.options["report_filename"])
+        Reporter(self).report()
 
         return self.failures
-        # self.LOGGER.error(f"Failures: {self.failures}")
 
     def check_file(self, source: AnyStr, base_url: Optional[AnyStr] = None) -> None:
         # Raises an error if the file is not found.

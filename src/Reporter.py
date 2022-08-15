@@ -1,6 +1,13 @@
+from __future__ import annotations
+from tabnanny import check
+from typing import TYPE_CHECKING
+
 from rich.console import Console
-from typing import Dict, List, AnyStr
+from typing import AnyStr
 import json
+
+if TYPE_CHECKING:
+    from Checker import Checker
 
 
 class Reporter:
@@ -8,8 +15,9 @@ class Reporter:
     Class to report the results of Checker.failures dictionary.
     """
 
-    def __init__(self, failures: Dict[AnyStr, List[AnyStr]]) -> None:
-        self.failures = failures
+    def __init__(self, checker: Checker) -> None:
+        self.failures = checker.failures
+        self.options = checker.options
         self.console = Console()
 
     def report(self) -> None:
@@ -37,12 +45,19 @@ class Reporter:
                 self.console.print(f"   URL:  {url}")
             self.console.print("")
 
+        # Write the report to file if the option is set
+        if self.options["report_to_file"]:
+            self.report_to_file(self.options["report_filename"])
+
     def report_to_file(self, file_path: AnyStr) -> None:
         """
         Prints the results of the Checker.failures dictionary to a file as JSON.
         """
         # Add "failures" key to the dictionary
-        failures = {"failures": self.failures}
+        failures = {
+            "metadata": {"date": "2020-01-01"},
+            "failures": self.failures,
+        }
 
         with open(file_path, "w") as file:
             file.write(json.dumps(failures, indent=4))
