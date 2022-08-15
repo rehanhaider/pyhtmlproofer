@@ -69,5 +69,5 @@ class Reporter:
 
         time_stamp = time.strftime("%Y-%m-%d-%H-%M-%S")
 
-        with open(f"{file_path}-{time_stamp}", "w") as file:
+        with open(f"{file_path}-{time_stamp}.json", "w") as file:
             file.write(json.dumps(failures, indent=4))

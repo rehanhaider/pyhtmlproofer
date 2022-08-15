@@ -20,7 +20,7 @@ class Config:
         "extensions": [".html"],
         "log_level": "ERROR",
         "report_to_file": True,
-        "report_filename": "proofer_report.json",
+        "report_filename": "proofer_report",
     }
 
     HTTP_DEFAULTS = {
