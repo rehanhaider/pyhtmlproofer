@@ -132,3 +132,5 @@ dmypy.json
 # Project specific files
 .pdm.toml
 __pypackages__/
+proofer_report-*.json
+pytest.log

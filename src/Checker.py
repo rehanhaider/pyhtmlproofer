@@ -1,4 +1,3 @@
-from time import sleep
 from typing import Union, Dict, Optional, List, AnyStr
 from os import path
 
@@ -7,6 +6,7 @@ from Log import Log
 from FILE import FILE
 from Utils import merge_urls, crawl_directory
 from URL import External, Internal
+from Reporter import Reporter
 
 
 class Checker:
@@ -31,7 +31,6 @@ class Checker:
         # Initialise empty list
         # The format is {file_paths: [url1, url2, ...]}
         self.failures = {}
-
         self.current_url = ""
 
     def check(self) -> None:
@@ -48,8 +47,10 @@ class Checker:
 
         self.validate()
 
+        # Report the erros using Reporter module
+        Reporter(self).report()
+
         return self.failures
-        # self.LOGGER.error(f"Failures: {self.failures}")
 
     def check_file(self, source: AnyStr, base_url: Optional[AnyStr] = None) -> None:
         # Raises an error if the file is not found.
@@ -77,9 +78,6 @@ class Checker:
             self.LOGGER.debug("Initialising File Object...")
             file = FILE(self)
             file_external_urls, file_internal_urls = file.check()
-
-        # self.LOGGER.error("External URLs: %s", file_external_urls)
-        # self.LOGGER.error("Internal URLs: %s", file_internal_urls)
 
         self.external_urls = merge_urls(self.external_urls, file_external_urls)
         self.internal_urls = merge_urls(self.internal_urls, file_internal_urls)
@@ -167,4 +165,4 @@ class Checker:
             if source in self.failures.keys():
                 self.failures[source].append(url)
             else:
-                self.failures[source] = url
+                self.failures[source] = [url]
