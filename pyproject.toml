@@ -31,6 +31,8 @@ test = [
 [tool.pdm.build]
 package-dir = "src"
 
+[tool.pdm.scripts]
+all = {call = "tests.all:main"}
 
 [build-system]
 requires = ["pdm-pep517>=1.0.0"]
