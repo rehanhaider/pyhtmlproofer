@@ -32,6 +32,7 @@ class External(URL):
         super().__init__(url, LOGGER, options)
 
     def validate(self):
+        # sourcery skip: assign-if-exp, boolean-if-exp-identity, reintroduce-else, remove-unnecessary-cast
         """
         This method is used to validate external URLs.
         """
