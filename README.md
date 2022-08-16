@@ -49,12 +49,12 @@ You can configure pyHTMLProofer to check:
 
 ### Links / Hyperlinks
 
-`a`, `link` elements: PyHTMLProofer checks - 
+`a`, `link` elements: PyHTMLProofer checks -
 
 - If the internal links are valid
 - If the internal references (`#in-page-links`) are valid
 - If the external links are valid
- 
+
 
 ### Images
 

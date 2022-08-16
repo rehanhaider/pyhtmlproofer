@@ -25,6 +25,7 @@ version = { source = "file", path = "src/__version__.py" }
 test = [
     "pytest>=7.1.2",
     "pyhtmlproofer @ file:///${PROJECT_ROOT}",
+    "pre-commit>=2.20.0",
 ]
 
 [tool.pdm.build]
@@ -45,3 +46,21 @@ log_cli = "True"
 log_level = "DEBUG"
 log_format = "%(levelname)s %(message)s"
 log_file = "pytest.log"
+
+
+[tool.black]
+line-length = 119
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''

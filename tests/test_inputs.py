@@ -1,4 +1,5 @@
 import pytest
+
 import pyHtmlProofer
 
 # options = {"log_level": "DEBUG", "ignore_files": ["tests/out/index.html"]}

@@ -1,7 +1,8 @@
 """Parses an HTML file and returns the list of links found in the HTML file."""
 
-from bs4 import BeautifulSoup
 from typing import AnyStr
+
+from bs4 import BeautifulSoup
 
 
 class HTML:

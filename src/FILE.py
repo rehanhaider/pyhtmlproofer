@@ -1,9 +1,12 @@
 from __future__ import annotations
+
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from Checker import Checker
+
 from os import path
+
 from bs4 import BeautifulSoup
 
 from HTML import HTML

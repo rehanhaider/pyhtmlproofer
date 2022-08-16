@@ -1,12 +1,12 @@
-from typing import Union, Dict, Optional, List, AnyStr
 from os import path
+from typing import AnyStr, Dict, List, Optional, Union
 
 from Config import Config
-from Log import Log
 from FILE import FILE
-from Utils import merge_urls, crawl_directory
-from URL import External, Internal
+from Log import Log
 from Reporter import Reporter
+from URL import External, Internal
+from Utils import crawl_directory, merge_urls
 
 
 class Checker:
@@ -41,7 +41,9 @@ class Checker:
         elif self.type == "links":
             for link in self.source:
                 self.check_link(link)
-            return self.failures  # Checks the links and not crawls them for external URLs
+            # Checks the links and not crawls them for external URLs
+            return self.failures
+
         else:
             raise ValueError(f"Invalid type: {self.type}")
 
@@ -57,11 +59,13 @@ class Checker:
         # This is specific to user provided file paths and not self-discovered ones
         # if not path.isfile(self.source):
         #    raise FileNotFoundError(f"File does not exist: {self.source}")
-        if not base_url:  # Invoked in case of one file check otherwise set at global by the check_directories method
+        # Invoked in case of one file check otherwise set at global by the check_directories method
+        if not base_url:
             # If base URL is not provided and a single filename is provided, raise an error if the file is not found
             if not path.isfile(source):
                 raise FileNotFoundError(f"File does not exist: {source}")
-            self.base_url = path.dirname(path.abspath(source))  # Used for internal file paths
+            # Used for internal file paths
+            self.base_url = path.dirname(path.abspath(source))
 
         self.LOGGER.debug(f"Base URL: {self.base_url}")
         self.current_url = source
@@ -148,7 +152,12 @@ class Checker:
                 self.LOGGER.debug(f"URL check already failed: {url}")
             else:
                 self.LOGGER.debug(f"Validating URL: {url}")
-                if Internal(url, LOGGER=self.LOGGER, options=self.options, base_url=self.base_url).validate():
+                if Internal(
+                    url,
+                    LOGGER=self.LOGGER,
+                    options=self.options,
+                    base_url=self.base_url,
+                ).validate():
                     self.LOGGER.info(f"Found URL: {url}")
                 else:
                     self.insert_failure(url, sources)

@@ -1,9 +1,10 @@
-import pytest
-import pyHtmlProofer
-from bs4 import BeautifulSoup
 import glob
-from pyHtmlProofer import Checker
 
+import pytest
+from bs4 import BeautifulSoup
+
+import pyHtmlProofer
+from pyHtmlProofer import Checker
 
 options = {"log_level": "ERROR", "disable_external": True}
 

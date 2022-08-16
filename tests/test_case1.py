@@ -1,4 +1,5 @@
 import pytest
+
 import pyHtmlProofer
 
 options = {"log_level": "ERROR", "disable_external": True}

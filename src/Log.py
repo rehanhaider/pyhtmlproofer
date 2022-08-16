@@ -1,4 +1,5 @@
 import logging
+
 from rich.console import Console
 from rich.logging import RichHandler
 
@@ -23,6 +24,11 @@ class Log:
 
         # Fix this in future
         FORMAT = "%(message)s"
-        logging.basicConfig(level=eval(f"logging.{log_level}"), format=FORMAT, datefmt=" ", handlers=[RichHandler()])
+        logging.basicConfig(
+            level=eval(f"logging.{log_level}"),
+            format=FORMAT,
+            datefmt=" ",
+            handlers=[RichHandler()],
+        )
         self.LOGGER = logging.getLogger(__name__)
         # self.LOGGER.setLevel(eval(f"logging.{log_level}"))
