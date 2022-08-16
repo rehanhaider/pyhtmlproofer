@@ -1,12 +1,20 @@
 from os import curdir
 from sys import intern
 from typing import AnyStr, Dict, Optional
-from HTML import HTML
+
 from bs4 import BeautifulSoup
+
+from HTML import HTML
 
 
 class URL:
-    def __init__(self, url: AnyStr, LOGGER, options: Optional[Dict] = None, base_url: Optional[AnyStr] = None) -> None:
+    def __init__(
+        self,
+        url: AnyStr,
+        LOGGER,
+        options: Optional[Dict] = None,
+        base_url: Optional[AnyStr] = None,
+    ) -> None:
         self.url = url
         self.options = options
         self.base_url = base_url
@@ -14,7 +22,13 @@ class URL:
 
 
 class External(URL):
-    def __init__(self, url: AnyStr, LOGGER, options: Optional[Dict] = None, base_url: Optional[AnyStr] = None) -> None:
+    def __init__(
+        self,
+        url: AnyStr,
+        LOGGER,
+        options: Optional[Dict] = None,
+        base_url: Optional[AnyStr] = None,
+    ) -> None:
         super().__init__(url, LOGGER, options)
 
     def validate(self):
@@ -38,7 +52,13 @@ class External(URL):
 
 
 class Internal(URL):
-    def __init__(self, url: AnyStr, LOGGER, options: Optional[Dict] = None, base_url: Optional[AnyStr] = None) -> None:
+    def __init__(
+        self,
+        url: AnyStr,
+        LOGGER,
+        options: Optional[Dict] = None,
+        base_url: Optional[AnyStr] = None,
+    ) -> None:
         super().__init__(url, LOGGER, options, base_url)
 
     def validate(self):
@@ -69,13 +89,15 @@ class Internal(URL):
             result = True
             if internal_reference:
                 result = self.check_reference(
-                    f"{internal_url_path}{self.options['assume_extension']}", internal_reference
+                    f"{internal_url_path}{self.options['assume_extension']}",
+                    internal_reference,
                 )
         elif path.isfile(f"{internal_url_path}/{self.options['directory_index_file']}"):
             result = True
             if internal_reference:
                 result = self.check_reference(
-                    f"{internal_url_path}/{self.options['directory_index_file']}", internal_reference
+                    f"{internal_url_path}/{self.options['directory_index_file']}",
+                    internal_reference,
                 )
         return result
 
