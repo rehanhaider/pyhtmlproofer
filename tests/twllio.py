@@ -50,7 +50,7 @@ Run a shell command with regex to fetch all links from the output html files
 
 def get_url_status(url):
     for local in ("localhost", "127.0.0.1", "app_server"):
-        if url.startswith("http://" + local):
+        if url.startswith(f"http://{local}"):
             return (url, 0)
     clean_url = url.strip("?.")
     try:
@@ -63,14 +63,15 @@ def get_url_status(url):
 
 
 def bad_url(url_status):
-    if url_status == -1:
+    if (
+        url_status == -1
+        or url_status not in [401, 403]
+        and url_status != 503
+        and url_status >= 400
+    ):
         return True
-    elif url_status == 401 or url_status == 403:
+    elif url_status in [401, 403, 503]:
         return False
-    elif url_status == 503:
-        return False
-    elif url_status >= 400:
-        return True
     return False
 
 
@@ -90,8 +91,7 @@ def extract_urls(discover_path):
         for file in files:
             output = f"Currently checking: file={file}"
             file_path = os.path.join(root, file)
-            if max_strlen < len(output):
-                max_strlen = len(output)
+            max_strlen = max(max_strlen, len(output))
             print(output.ljust(max_strlen), end="\r")
             if file_path.endswith(".html"):
                 content = open(file_path)
@@ -113,14 +113,11 @@ print(HTML_FOLDER)
 
 all_urls = extract_urls(HTML_FOLDER)
 bad_urls = {}
-url_id = 1
 max_strlen = -1
-for url_path, url_status in run_workers(get_url_status, all_urls):
+for url_id, (url_path, url_status) in enumerate(run_workers(get_url_status, all_urls), start=1):
     output = f"Currently checking: id={url_id} host={urllib3.util.parse_url(url_path).host}"
-    if max_strlen < len(output):
-        max_strlen = len(output)
+    max_strlen = max(max_strlen, len(output))
     print(output.ljust(max_strlen), end="\r")
     if bad_url(url_status) is True:
         bad_urls[url_path] = url_status
-    url_id += 1
 print(f"\nBad urls: {json.dumps(bad_urls, indent=4)}")
