@@ -1,13 +1,13 @@
-from concurrent import futures
+import json
 import multiprocessing as mp
 import os
-import json
 import uuid
+from concurrent import futures
 
-from bs4 import BeautifulSoup
-from markdown import markdown
 import requests
 import urllib3
+from bs4 import BeautifulSoup
+from markdown import markdown
 
 # Sources of data (file)
 # URL_IN_PATH = os.path.join(os.getcwd(), "urlsin.txt")
