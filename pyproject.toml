@@ -31,6 +31,11 @@ test = [
 [tool.pdm.build]
 package-dir = "src"
 
+[tool.pdm.scripts]
+all = {call = "tests.all:main"}
+pre_test = {shell = "unzip tests.zip"}
+test = {shell = "pytest"}
+post_test = {shell = "zip -r tests.zip tests/ && rm -rf tests"}
 
 [build-system]
 requires = ["pdm-pep517>=1.0.0"]

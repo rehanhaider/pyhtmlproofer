@@ -1,0 +1,25 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "unzip",
+            "type": "shell",
+            "command": "unzip tests.zip",
+            "args": [],
+            "presentation": {
+                "reveal": "always"
+            },
+            "group": "test"
+        },
+        {
+            "label": "delete",
+            "type": "shell",
+            "command": "rm -rf tests",
+            "args": [],
+            "presentation": {
+                "reveal": "always"
+            },
+            "group": "test"
+        }
+    ]
+}

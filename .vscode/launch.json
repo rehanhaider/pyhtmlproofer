@@ -9,7 +9,10 @@
             "type": "python",
             "request": "launch",
             "module": "pytest",
-            "justMyCode": true
+            "justMyCode": true,
+            "console": "integratedTerminal",
+            "preLaunchTask": "unzip",
+            "postDebugTask": "delete"
         }
     ]
 }
