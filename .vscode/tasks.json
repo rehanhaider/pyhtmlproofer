@@ -7,17 +7,17 @@
             "command": "unzip tests.zip",
             "args": [],
             "presentation": {
-                "reveal": "never"
+                "reveal": "silent"
             },
             "group": "test"
         },
         {
             "label": "delete",
             "type": "shell",
-            "command": "zip -r tests.zip tests && rm -rf tests",
+            "command": "zip -r tests.zip tests -x tests/__pycache__/* && rm -rf tests",
             "args": [],
             "presentation": {
-                "reveal": "never"
+                "reveal": "silent"
             },
             "group": "test"
         }

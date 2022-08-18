@@ -1,8 +1,9 @@
 import sys
+from .CLI import CLI
 
 
 def main():
-    print("From inside __main__")
+    CLI.main()
 
 
 if __name__ == "__main__":
