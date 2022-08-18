@@ -29,11 +29,14 @@ classifiers = [
     "Topic :: Software Development :: Quality Assurance",
     "Topic :: Software Development :: Testing",
 ]
+
 [project.urls]
 "Homepage" = "https://github.com/rehanhaider/pyhtmlproofer"
 "Source Code" = "https://github.com/rehanhaider/pyhtmlproofer"
 "Funding" = "https://github.com/sponsors/rehanhaider"
 
+[project.scripts]
+"pyhtmlproofer" = "pyHtmlProofer.__main__:main"
 
 [tool.pdm]
 version = { source = "file", path = "src/pyHtmlProofer/__version__.py" }
