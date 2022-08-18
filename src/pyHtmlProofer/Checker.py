@@ -1,12 +1,12 @@
 from os import path
 from typing import AnyStr, Dict, List, Optional, Union
 
-from Config import Config
-from FILE import FILE
-from Log import Log
-from Reporter import Reporter
-from URL import External, Internal
-from Utils import crawl_directory, merge_urls
+from .Config import Config
+from .FILE import FILE
+from .Log import Log
+from .Reporter import Reporter
+from .URL import External, Internal
+from .Utils import crawl_directory, merge_urls
 
 
 class Checker:

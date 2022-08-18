@@ -36,7 +36,7 @@ classifiers = [
 
 
 [tool.pdm]
-version = { source = "file", path = "src/__version__.py" }
+version = { source = "file", path = "src/pyHtmlProofer/__version__.py" }
 
 [tool.pdm.dev-dependencies]
 test = [
