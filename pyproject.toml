@@ -32,7 +32,7 @@ classifiers = [
 ]
 
 [project.urls]
-"url" = "https://pypi.org/project/pyhtmlproofer"
+"Url" = "https://pypi.org/project/pyhtmlproofer"
 "Source" = "https://github.com/rehanhaider/pyhtmlproofer"
 "Funding" = "https://github.com/sponsors/rehanhaider"
 
