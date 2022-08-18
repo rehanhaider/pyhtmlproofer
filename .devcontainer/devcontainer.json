@@ -43,7 +43,8 @@
 		"GitHub.copilot",
 		"sourcery.sourcery",
 		"VisualStudioExptTeam.vscodeintellicode",
-		"njpwerner.autodocstring"
+		"njpwerner.autodocstring",
+		"tamasfe.even-better-toml"
 	],
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
