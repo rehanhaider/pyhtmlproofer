@@ -31,8 +31,10 @@ classifiers = [
     "Topic :: Software Development :: Testing",
 ]
 
-[project.urls]
 
+[project.urls]
+# Set project url to the GitHub repo
+"Project-URL" = "https://pypi.org/project/pyhtmlproofer"
 "Source" = "https://github.com/rehanhaider/pyhtmlproofer"
 "Funding" = "https://github.com/sponsors/rehanhaider"
 
@@ -49,8 +51,6 @@ test = [
     "pre-commit>=2.20.0",
 ]
 
-[tool.pdm.urls]
-"Url" = "https://pypi.org/project/pyhtmlproofer"
 
 [tool.pdm.scripts]
 all = { call = "tests.all:main" }
