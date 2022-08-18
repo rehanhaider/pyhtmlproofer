@@ -10,7 +10,7 @@ dependencies = [
     "beautifulsoup4>=4.11.1",
     "rich>=12.5.1",
 ]
-requires-python = ">=3.8"
+requires-python = ">=3.7"
 readme = "README.md"
 license = { text = "MIT" }
 classifiers = [
