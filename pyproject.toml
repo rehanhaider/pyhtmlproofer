@@ -31,8 +31,7 @@ classifiers = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/rehanhaider/pyhtmlproofer"
-"Source Code" = "https://github.com/rehanhaider/pyhtmlproofer"
+"Source" = "https://github.com/rehanhaider/pyhtmlproofer"
 "Funding" = "https://github.com/sponsors/rehanhaider"
 
 [project.scripts]
