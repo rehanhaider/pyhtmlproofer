@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from Checker import Checker
+    from .Checker import Checker
 
 import json
 import time
@@ -11,7 +11,7 @@ from typing import AnyStr
 
 from rich.console import Console
 
-from __version__ import __version__
+from .__version__ import __version__
 
 
 class Reporter:

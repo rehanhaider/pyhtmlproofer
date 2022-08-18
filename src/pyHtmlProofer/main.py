@@ -1,13 +1,12 @@
 from typing import AnyStr, Dict, List, Optional
 
-from Checker import Checker
+from .Checker import Checker
 
 
 def file(file_path: AnyStr, options: Optional[Dict] = None) -> Checker:
     """
     Check a file.
     """
-
     # Raise error if file path is not a string
     if not isinstance(file_path, str):
         raise TypeError("Input must be a string")

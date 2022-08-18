@@ -4,7 +4,7 @@ from typing import AnyStr, Dict, Optional
 
 from bs4 import BeautifulSoup
 
-from HTML import HTML
+from .HTML import HTML
 
 
 class URL:
