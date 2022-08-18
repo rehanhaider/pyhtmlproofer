@@ -45,8 +45,6 @@ test = [
     "pre-commit>=2.20.0",
 ]
 
-[tool.pdm.build]
-package-dir = "src"
 
 [tool.pdm.scripts]
 all = { call = "tests.all:main" }
