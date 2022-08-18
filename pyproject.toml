@@ -32,7 +32,7 @@ classifiers = [
 ]
 
 [project.urls]
-"Url" = "https://pypi.org/project/pyhtmlproofer"
+
 "Source" = "https://github.com/rehanhaider/pyhtmlproofer"
 "Funding" = "https://github.com/sponsors/rehanhaider"
 
@@ -49,6 +49,8 @@ test = [
     "pre-commit>=2.20.0",
 ]
 
+[tool.pdm.urls]
+"Url" = "https://pypi.org/project/pyhtmlproofer"
 
 [tool.pdm.scripts]
 all = { call = "tests.all:main" }
