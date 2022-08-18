@@ -10,6 +10,7 @@ dependencies = [
     "beautifulsoup4>=4.11.1",
     "rich>=12.5.1",
 ]
+
 requires-python = ">=3.7"
 readme = "README.md"
 license = { text = "AGPL-3.0" }
@@ -31,6 +32,7 @@ classifiers = [
 ]
 
 [project.urls]
+"url" = "https://pypi.org/project/pyhtmlproofer"
 "Source" = "https://github.com/rehanhaider/pyhtmlproofer"
 "Funding" = "https://github.com/sponsors/rehanhaider"
 
