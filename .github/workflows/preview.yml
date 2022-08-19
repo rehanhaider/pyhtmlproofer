@@ -6,6 +6,7 @@ on:
       - ".gitignore"
       - ".devcontainer/**"
       - ".vscode/**"
+      - "docs/**"
 
 jobs:
   test:

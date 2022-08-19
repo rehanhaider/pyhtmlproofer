@@ -52,7 +52,10 @@ test = [
     "pyhtmlproofer @ file:///${PROJECT_ROOT}",
     "pre-commit>=2.20.0",
 ]
-dev = ["sphinx>=5.1.1"]
+dev = [
+    "sphinx>=5.1.1",
+    "myst-parser>=0.18.0",
+]
 
 
 [tool.pdm.scripts]
