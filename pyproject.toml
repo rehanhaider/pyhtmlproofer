@@ -41,6 +41,7 @@ classifiers = [
 [project.scripts]
 "pyhtmlproofer" = "pyHtmlProofer.__main__:main"
 
+[project.optional-dependencies]
 [tool.pdm]
 version = { source = "file", path = "src/pyHtmlProofer/__version__.py" }
 
@@ -50,6 +51,7 @@ test = [
     "pyhtmlproofer @ file:///${PROJECT_ROOT}",
     "pre-commit>=2.20.0",
 ]
+dev = []
 
 
 [tool.pdm.scripts]

@@ -166,7 +166,7 @@ summary = "Pygments is a syntax highlighting package written in Python."
 name = "pyhtmlproofer"
 version = "0.5.2.alpha"
 requires_python = ">=3.7"
-path = "."
+path = "./."
 summary = "pyHtmlProofer - A tool for validating internal & external links in HTML files / Websites"
 dependencies = [
     "beautifulsoup4>=4.11.1",
@@ -295,7 +295,7 @@ summary = "Backport of pathlib-compatible object wrapper for zip files"
 
 [metadata]
 lock_version = "4.0"
-content_hash = "sha256:ee152a1677d5c7f5f6276097c4e59f39600544567465935605a99c623d59d4eb"
+content_hash = "sha256:fbfeb48ac84b91370f9d3bf95b708e4d941ac79d11b5fbdf3c6c361d04ec3ded"
 
 [metadata.files]
 "atomicwrites 1.4.1" = [
