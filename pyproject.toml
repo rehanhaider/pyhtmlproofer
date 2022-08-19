@@ -34,7 +34,6 @@ classifiers = [
 
 [project.urls]
 # Set project url to the GitHub repo
-Homepage = "https://pypi.org/project/pyhtmlproofer"
 Source = "https://github.com/rehanhaider/pyhtmlproofer"
 #Funding = "https://github.com/sponsors/rehanhaider"
 
@@ -42,9 +41,10 @@ Source = "https://github.com/rehanhaider/pyhtmlproofer"
 "pyhtmlproofer" = "pyHtmlProofer.__main__:main"
 
 [project.optional-dependencies]
+
 [tool.pdm]
 version = { source = "file", path = "src/pyHtmlProofer/__version__.py" }
-
+homepage = "https://pypi.org/project/pyhtmlproofer"
 
 [tool.pdm.dev-dependencies]
 test = [
@@ -52,7 +52,7 @@ test = [
     "pyhtmlproofer @ file:///${PROJECT_ROOT}",
     "pre-commit>=2.20.0",
 ]
-dev = []
+dev = ["sphinx>=5.1.1"]
 
 
 [tool.pdm.scripts]
