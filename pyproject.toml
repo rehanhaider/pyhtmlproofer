@@ -52,17 +52,14 @@ test = [
     "pyhtmlproofer @ file:///${PROJECT_ROOT}",
     "pre-commit>=2.20.0",
 ]
-dev = [
-    "sphinx>=5.1.1",
-    "myst-parser>=0.18.0",
-]
+dev = ["sphinx>=5.1.1"]
 
 
 [tool.pdm.scripts]
 all = { call = "tests.all:main" }
-pre_test = { shell = "unzip tests.zip" }
+pre_test = { shell = "unzip tests/cases.zip" }
 test = { shell = "pytest" }
-post_test = { shell = "zip -r tests.zip tests -x tests/__pycache__/* && rm -rf tests" }
+post_test = { shell = "zip -r tests/cases.zip tests/cases && rm -rf tests/cases" }
 
 [build-system]
 requires = ["pdm-pep517>=1.0.0"]
