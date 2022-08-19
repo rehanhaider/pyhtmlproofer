@@ -34,7 +34,7 @@ classifiers = [
 
 [project.urls]
 # Set project url to the GitHub repo
-"Project-URL" = "https://pypi.org/project/pyhtmlproofer"
+"Home-page" = "https://pypi.org/project/pyhtmlproofer"
 "Source" = "https://github.com/rehanhaider/pyhtmlproofer"
 "Funding" = "https://github.com/sponsors/rehanhaider"
 
