@@ -9,6 +9,7 @@ on:
       - ".devcontainer/**"
       - ".vscode/**"
       - "docs/**"
+      - "mkdocs.yml"
 
 
 jobs:
