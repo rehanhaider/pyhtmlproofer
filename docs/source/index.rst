@@ -15,6 +15,7 @@ Welcome to pyhtmlproofer's documentation!
 Indices and tables
 ==================
 
+Quickstart
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
