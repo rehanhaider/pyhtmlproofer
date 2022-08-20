@@ -8,14 +8,27 @@ Welcome to pyhtmlproofer's documentation!
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: Quickstart
+
+   start
+   install
+   usage
+   examples
+   finish
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents
+
+   start
+   install
+   usage
+   examples
+   finish
 
 
 
 Indices and tables
 ==================
 
-Quickstart
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+
