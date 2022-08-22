@@ -1,4 +1,4 @@
 """Version of pyHTMLProofer."""
 from __future__ import unicode_literals
 
-__version__ = "0.6.18-alpha"
+__version__ = "0.6.20-alpha"
