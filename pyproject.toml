@@ -38,7 +38,7 @@ Source = "https://github.com/rehanhaider/pyhtmlproofer"
 #Funding = "https://github.com/sponsors/rehanhaider"
 
 [project.scripts]
-"pyhtmlproofer" = "pyHtmlProofer.__main__:main"
+"pyhtmlproofer" = "pyhtmlproofer.__main__:main"
 
 [project.optional-dependencies]
 
