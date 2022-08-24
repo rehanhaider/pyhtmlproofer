@@ -295,7 +295,7 @@ summary = "Backport of pathlib-compatible object wrapper for zip files"
 
 [metadata]
 lock_version = "4.0"
-content_hash = "sha256:fbfeb48ac84b91370f9d3bf95b708e4d941ac79d11b5fbdf3c6c361d04ec3ded"
+content_hash = "sha256:ee152a1677d5c7f5f6276097c4e59f39600544567465935605a99c623d59d4eb"
 
 [metadata.files]
 "atomicwrites 1.4.1" = [
