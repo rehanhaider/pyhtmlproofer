@@ -43,7 +43,7 @@ Source = "https://github.com/rehanhaider/pyhtmlproofer"
 [project.optional-dependencies]
 
 [tool.pdm]
-version = { source = "file", path = "src/pyHtmlProofer/__version__.py" }
+version = { source = "file", path = "src/pyhtmlproofer/__version__.py" }
 homepage = "https://pypi.org/project/pyhtmlproofer"
 
 [tool.pdm.dev-dependencies]
