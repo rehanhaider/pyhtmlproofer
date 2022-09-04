@@ -24,6 +24,7 @@ class Reporter:
         self.options = checker.options
         self.console = Console()
         self.source = checker.source
+        self.time = checker.end_time - checker.start_time
 
     def report(self) -> None:
         """
@@ -39,6 +40,8 @@ class Reporter:
             # Print the number of failures and the files that have failures
             # add up the number elements in items()
             self.console.print(f"{len(fails)} failures found in {len(self.failures)} files.\n")
+            # print the time taken to check the files
+            self.console.print(f"Time taken: {self.time:.4f} seconds.\n")
 
         # Print the files that have failures
         self.console.print("================================================================================")
@@ -65,6 +68,7 @@ class Reporter:
                 "time": time.strftime("%Y-%m-%d %H:%M:%S"),
                 "version": __version__,
                 "input": self.source,
+                "exec_time": self.time,
             },
             "failures": self.failures,
         }

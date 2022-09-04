@@ -1,5 +1,6 @@
 from os import path
 from typing import AnyStr, Dict, List, Optional, Union
+from time import perf_counter
 
 from .Config import Config
 from .FILE import FILE
@@ -34,6 +35,8 @@ class Checker:
         self.current_url = ""
 
     def check(self) -> None:
+        self.start_time = perf_counter()
+
         if self.type == "file":
             self.check_file(self.source)
         elif self.type == "directories":
@@ -48,7 +51,7 @@ class Checker:
             raise ValueError(f"Invalid type: {self.type}")
 
         self.validate()
-
+        self.end_time = perf_counter()
         # Report the erros using Reporter module
         Reporter(self).report()
 

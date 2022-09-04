@@ -137,3 +137,4 @@ proofer_report-*.json
 pytest.log
 build/
 dist/
+tests/cases/
